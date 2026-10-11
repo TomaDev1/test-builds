@@ -1,8 +1,8 @@
 # Test builds
 
-Test releases of a Windows tool for configuring Cisco switches and routers, checking them against DISA STIGs, and keeping backups. These are pre-release builds for invited testers.
+Early builds of a Windows app for building, checking and pushing Cisco switch and router configs. It checks configs against DISA STIGs as you edit, keeps backups, and sends only the changed lines when you push to a switch. These builds are for invited testers, so expect rough edges.
 
-Download the latest build from **[Releases](../../releases)**.
+Download the latest build from **[Releases](../../releases)**. There's a tour of what's in it at **[tomadev1.github.io/test-builds](https://tomadev1.github.io/test-builds/)**.
 
 ## Which file do I want?
 
@@ -37,4 +37,4 @@ Your projects, backups and settings stay on your PC, in `%AppData%\SwitchForge`.
 
 ## Feedback
 
-Report problems through the contact you received your invitation from. Please include the version number (shown on the sign-in screen) and what you were doing.
+Reply to whoever sent you the invitation. Anything that surprised you is useful: a check that's wrong for your config, a screen you couldn't figure out, a crash, or a step that took longer than doing it by hand. Results from real switches help most, ideally a lab switch first. Please include the version number (shown on the sign-in screen) and what you were doing.
