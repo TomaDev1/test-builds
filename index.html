@@ -308,7 +308,7 @@ footer p{max-width:66ch}
     <figure class="shot-hero reveal">
       <div class="window">
         <div class="bar"><i></i><i></i><i></i><span>Design · ACCESS-SW01 · Catalyst C9300-48P</span></div>
-        <img src="assets/img/design.webp" width="1600" height="930" fetchpriority="high"
+        <img src="assets/img/design.webp?v=0.7.0" width="1600" height="930" fetchpriority="high"
              alt="The Design page. A 48-port Catalyst front panel with ports 1 to 24 selected, a table listing each selected port with its description, mode, VLAN 10 USERS, voice VLAN 20, PoE and BPDU guard, and port settings on the right: access mode, data VLAN 10, voice VLAN 20, PortFast and BPDU guard on, and the config lines for these ports."
              data-cap="Design: ports 1 to 24 selected on the front panel, listed one per row, with their settings on the right and the config lines they produce underneath.">
       </div>
@@ -356,7 +356,7 @@ footer p{max-width:66ch}
         </ul>
       </div>
       <figure class="reveal">
-        <div class="frame"><img src="assets/img/debugger.webp" width="1368" height="912" loading="lazy"
+        <div class="frame"><img src="assets/img/debugger.webp?v=0.7.0" width="1368" height="912" loading="lazy"
           alt="The Configuration page with a test config loaded: the Global form on the left, the config text in the middle, and the debugger underneath listing 21 problems, including an invalid NTP server, an invalid static route next hop, spanning-tree priority 4097 and Vlan10 overlapping the management subnet. On the right, Why is this a problem? explains that 10.20.30.999 isn't a valid IPv4 address, with Show in text and Edit in Design buttons."
           data-cap="A test config full of deliberate mistakes: 21 problems listed under the editor, and the Why? panel explaining the invalid NTP server, with Show in text and Edit in Design."><span class="zoom">Click to enlarge</span></div>
         <figcaption>A test config full of deliberate mistakes, with the reason for the selected one on the right.</figcaption>
@@ -375,7 +375,7 @@ footer p{max-width:66ch}
         </ul>
       </div>
       <figure class="reveal">
-        <div class="frame"><img src="assets/img/routing.webp" width="1080" height="900" loading="lazy"
+        <div class="frame"><img src="assets/img/routing.webp?v=0.7.0" width="1080" height="900" loading="lazy"
           alt="The Global configuration form with its section list on the left, Routing selected and marked OSPF + BGP. The BGP card shows router bgp 65010 with router ID 10.255.0.11, a neighbor 203.0.113.1 in AS 64999 described as ISP-A CIRCUIT 4471 with its password and route-map lines kept, a neighbor 10.255.0.12 in AS 65010 described as EDGE-02 with update source Loopback0 and next-hop-self on, and network 10.31.0.0 mask 255.255.0.0."
           data-cap="BGP on an edge switch: an eBGP neighbor to the ISP and an iBGP peer, with the lines the form doesn't show kept as written."><span class="zoom">Click to enlarge</span></div>
       </figure>
@@ -393,7 +393,7 @@ footer p{max-width:66ch}
         </ul>
       </div>
       <figure class="reveal">
-        <div class="frame"><img src="assets/img/acl.webp" width="1080" height="1000" loading="lazy"
+        <div class="frame"><img src="assets/img/acl.webp?v=0.7.0" width="1080" height="1000" loading="lazy"
           alt="The ACL builder. Extended ACL USERS-IN has a remark, a logged deny ip from 10.0.10.0/24 to 10.0.99.0/24, a permit udp from any to any eq bootps and a permit ip any any, each with a drag handle and arrows. It is applied to interface Vlan10 inbound, with the generated CLI underneath."
           data-cap="ACL builder: extended ACL USERS-IN, applied to Vlan10 inbound, with its generated CLI."><span class="zoom">Click to enlarge</span></div>
       </figure>
@@ -423,13 +423,13 @@ footer p{max-width:66ch}
     </div>
     <div class="duo">
       <figure class="reveal">
-        <div class="frame"><img src="assets/img/commit.webp" width="780" height="840" loading="lazy"
+        <div class="frame"><img src="assets/img/commit.webp?v=0.7.0" width="780" height="840" loading="lazy"
           alt="Commit to ACCESS-SW01: 54 changes in 3 interface blocks. Pre-flight: switch reachable, a warning that ports Gi1/0/45-48 and Te1/1/3-8 will be shut down so make sure none is the uplink, then configuration syntax, no STIG regressions, best practices and golden standards passed. Below are the 10 command lines that will be sent, a change ticket field, and backup, safety net and before/after check options."
           data-cap="Before: only the delta, with the pre-flight checks. A warning flags the ports that will be shut down. You can edit the commands before committing."><span class="zoom">Click to enlarge</span></div>
         <figcaption><b>Before.</b> Only the delta is sent, and the pre-flight warns about ports being shut down.</figcaption>
       </figure>
       <figure class="reveal">
-        <div class="frame"><img src="assets/img/commit-report.webp" width="640" height="680" loading="lazy"
+        <div class="frame"><img src="assets/img/commit-report.webp?v=0.7.0" width="640" height="680" loading="lazy"
           alt="Change deployed and verified on 10.0.99.11 with ticket CHG0042: the pre-checks, 3 commands with a backup first and a reload-in-10 safety net, and every post-check passed, from still reachable to spanning-tree root unchanged."
           data-cap="After: the deployment record, ready for the change ticket."><span class="zoom">Click to enlarge</span></div>
         <figcaption><b>After.</b> The record for the change ticket, exportable as HTML.</figcaption>
@@ -465,7 +465,7 @@ footer p{max-width:66ch}
         </ul>
       </div>
       <figure class="reveal">
-        <div class="frame"><img src="assets/img/stig.webp" width="1368" height="912" loading="lazy"
+        <div class="frame"><img src="assets/img/stig.webp?v=0.7.0" width="1368" height="912" loading="lazy"
           alt="The Compliance page's STIG tab with the Cisco IOS XE Switch L2S STIG V3R2 checking ACCESS-SW01: CAT I open 1, CAT II open 7, CAT III open 2, not a finding 10, needs manual review 1. Rule CISC-L2-000020 (V-220649, 802.1X) is open because 802.1X/MAB isn't configured; the evidence shows the interface lines, and the fix is Turn on 802.1X with MAB fallback. Export .cklb, POA&amp;M, Fix all open and Check fleet buttons sit at the top."
           data-cap="The STIG tab: open findings by category, rule V-220649 open with the config lines behind it, and its fix."><span class="zoom">Click to enlarge</span></div>
         <figcaption>Rule V-220649 is open, with the evidence that goes into the checklist and its fix.</figcaption>
@@ -483,7 +483,7 @@ footer p{max-width:66ch}
         </ul>
       </div>
       <figure class="reveal">
-        <div class="frame light"><img src="assets/img/report-stig.webp" width="820" height="900" loading="lazy"
+        <div class="frame light"><img src="assets/img/report-stig.webp?v=0.7.0" width="820" height="900" loading="lazy"
           alt="An HTML STIG report for ACCESS-SW01 with a CUI banner, a summary table (1 CAT I, 10 CAT II and 1 CAT III open, 8 not a finding, 40% compliance) and the open findings with their CCIs and configuration evidence."
           data-cap="The STIG report for ACCESS-SW01: banner, summary with the compliance score, and each open finding with its evidence."><span class="zoom">Click to enlarge</span></div>
       </figure>
@@ -523,7 +523,7 @@ footer p{max-width:66ch}
         </ul>
       </div>
       <figure class="reveal">
-        <div class="frame"><img src="assets/img/home.webp" width="1368" height="912" loading="lazy"
+        <div class="frame"><img src="assets/img/home.webp?v=0.7.0" width="1368" height="912" loading="lazy"
           alt="The Home page: 9 of 10 switches reachable with ACCESS-SW05 unreachable, 83% STIG compliance with 6 of 10 switches compliant, 2 open CAT I findings on 2 switches, 1 switch changed since known-good, and 10 backups in the last 24 hours with 1 failed. Needs attention lists ACCESS-SW05 (backup failed), ACCESS-SW01 and ACCESS-SW04 (open STIG rules) and DIST-SW02 (drifted). On the right, compliance by severity and recent projects; below, recent activity."
           data-cap="Home: 10 switches at a glance, and the 4 that need attention, each with the reason."><span class="zoom">Click to enlarge</span></div>
       </figure>
@@ -542,7 +542,7 @@ footer p{max-width:66ch}
         </ul>
       </div>
       <figure class="reveal">
-        <div class="frame"><img src="assets/img/fleet.webp" width="1368" height="912" loading="lazy"
+        <div class="frame"><img src="assets/img/fleet.webp?v=0.7.0" width="1368" height="912" loading="lazy"
           alt="The Fleet board: 10 switches, 6 compliant, 1 drifted, 2 non-compliant and 1 unreachable, checked against 1 STIG and 1 policy pack. Each switch is listed with its model, IOS release, reachability, STIG score, drift, last backup and the reason, from Backup failed: No reply on port 22 to No open findings and no drift."
           data-cap="Fleet board: 10 switches, each with its state and the reason for it."><span class="zoom">Click to enlarge</span></div>
       </figure>
@@ -561,7 +561,7 @@ footer p{max-width:66ch}
         </ul>
       </div>
       <figure class="reveal">
-        <div class="frame"><img src="assets/img/whatchanged.webp" width="1368" height="912" loading="lazy"
+        <div class="frame"><img src="assets/img/whatchanged.webp?v=0.7.0" width="1368" height="912" loading="lazy"
           alt="The Backups page for DIST-SW02: a scheduled backup from 2026-10-13 and a known-good backup from 2026-10-06. What changed lists 4 changes, 1 touching security: an SNMP community was added (its value masked), VLAN 77 TEMP-VENDOR was added, and an NTP server was replaced. Below that is the line-by-line diff with added lines in green and removed lines in red."
           data-cap="What changed on DIST-SW02 since its known-good backup: security first, then grouped changes and the line-by-line diff."><span class="zoom">Click to enlarge</span></div>
       </figure>
@@ -580,7 +580,7 @@ footer p{max-width:66ch}
         </ul>
       </div>
       <figure class="reveal">
-        <div class="frame"><img src="assets/img/versions.webp" width="1368" height="912" loading="lazy"
+        <div class="frame"><img src="assets/img/versions.webp?v=0.7.0" width="1368" height="912" loading="lazy"
           alt="The Versions page: 10 switches, 6 with advisories, 3 at end of sale or support. ACCESS-SW01 on IOS XE 17.9.3 is marked Affected by the critical web UI advisory because its config turns on the web UI, and its release is past support."
           data-cap="Versions: ACCESS-SW01 is affected by the web UI advisory because its config turns on ip http server."><span class="zoom">Click to enlarge</span></div>
       </figure>
@@ -599,7 +599,7 @@ footer p{max-width:66ch}
         </ul>
       </div>
       <figure class="reveal">
-        <div class="frame"><img src="assets/img/topology.webp" width="1545" height="610" loading="lazy"
+        <div class="frame"><img src="assets/img/topology.webp?v=0.7.0" width="1545" height="610" loading="lazy"
           alt="The Topology map: CORE-SW01, CORE-SW02 and WAN-RTR01 in the core layer, DIST-SW01 and DIST-SW02 in distribution, and five access switches below, linked by blue trunk lines and purple routed lines labelled with port names. ACCESS-SW05 has a dashed red border because it couldn't be read, and ACCESS-SW01 and ACCESS-SW02 carry endpoint badges."
           data-cap="Topology: core, distribution and access layers, with trunks in blue, routed links in purple, and a switch that couldn't be read outlined in red."><span class="zoom">Click to enlarge</span></div>
       </figure>
