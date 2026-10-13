@@ -286,6 +286,7 @@ footer p{max-width:66ch}
   #lb .next{right:calc(50% - 56px)}
 }
 @media (max-width:600px){
+  .hero h1{font-size:min(36px,9vw)}
   .wrap{padding:0 16px}
   .top .wrap{gap:12px}
   .hero{padding-top:56px}
@@ -400,7 +401,7 @@ footer p{max-width:66ch}
         <div>
           <div class="tags"><span class="tag e">ERROR</span><span class="tag w">WARNING</span><span class="tag i">INFO</span><span class="tag c">COMPLIANCE</span></div>
           <h3>A debugger that knows IOS</h3>
-          <p>Every line is checked as you type. Problem lines are underlined in the editor, and the debugger lists each issue with a <b>Why?</b> that explains it.</p>
+          <p>Every line is checked as you type. Problem lines are underlined in the editor, and the debugger lists each issue. Pick one to see why it's a problem.</p>
         </div>
         <ul class="ticks">
           <li><b>Invalid values</b>, like an NTP server of 10.20.30.999 or a static route to a next hop of 10.20.400.1</li>
@@ -413,7 +414,7 @@ footer p{max-width:66ch}
         <div class="frame"><img src="assets/img/debugger.webp?v=0.7.0-2" srcset="assets/img/debugger.webp?v=0.7.0-2 1x, assets/img/debugger@2x.webp?v=0.7.0-2 2x" data-full="assets/img/debugger@2x.webp?v=0.7.0-2"
           width="1368" height="912" loading="lazy"
           alt="The Configuration page with a test config loaded: the Global form on the left, the config text in the middle, and the debugger underneath listing 21 problems, including an invalid NTP server, an invalid static route next hop, spanning-tree priority 4097 and Vlan10 overlapping the management subnet, with 14 more on its Compliance tab. On the right, Why is this a problem? explains that 10.20.30.999 isn't a valid IPv4 address, with Show in text and Edit in Design buttons."
-          data-cap="A test config full of deliberate mistakes: 21 problems listed under the editor, and the Why? panel explaining the invalid NTP server, with Show in text and Edit in Design."></div>
+          data-cap="A test config full of deliberate mistakes: 21 problems listed under the editor, and the panel explaining why the NTP server is invalid, with Show in text and Edit in Design."></div>
         <figcaption>A test config full of deliberate mistakes, with the reason for the selected one on the right.</figcaption>
       </figure>
     </div>
@@ -440,7 +441,7 @@ footer p{max-width:66ch}
     <div class="feature flip">
       <div class="copy reveal">
         <h3>ACLs without the guesswork</h3>
-        <p>Build named standard and extended ACLs one rule per row, with the generated CLI underneath.</p>
+        <p>Build named standard and extended ACLs rule by rule, with the generated CLI underneath.</p>
         <ul class="ticks">
           <li><b>Extended rules</b> with protocol, source, destination and ports</li>
           <li><b>Reorder rules</b> by dragging the handle or with the arrows</li>
@@ -461,11 +462,11 @@ footer p{max-width:66ch}
       <div class="cards reveal">
         <div class="card"><h4>Routing policy</h4><p>Key chains, prefix lists and route maps, with checks for undefined, unused and deny-only items, and for routing neighbors that are unauthenticated or use MD5.</p></div>
         <div class="card"><h4>Layer 2</h4><p>Spanning tree priorities and MST regions, EtherChannel with LACP, UDLD, CDP and LLDP, and storm control.</p></div>
-        <div class="card"><h4>Access security</h4><p>RADIUS and TACACS+ server groups, 802.1X with a warning if it could cut off management, DHCP snooping and ARP inspection trust, CoPP and IPv6 <span class="nw">first-hop</span> security.</p></div>
+        <div class="card"><h4>Access security</h4><p>RADIUS and TACACS+ server groups, 802.1X with a warning if it could cut off management, DHCP snooping and ARP inspection trust, CoPP, and IPv6 RA guard and DHCPv6 guard on IOS&nbsp;XE.</p></div>
         <div class="card"><h4>QoS</h4><p>Class maps, policy maps and service policies, with a voice preset for ports with a voice VLAN.</p></div>
         <div class="card"><h4>Gateways and DHCP</h4><p>HSRP and VRRP, DHCP relay and pools, and VRF-lite. Compare with peer lists the HSRP or VRRP differences between two switches.</p></div>
         <div class="card"><h4>Management and monitoring</h4><p>SNMPv3, syslog, NetFlow, SPAN and RSPAN, stack provisioning and PoE per port.</p></div>
-        <div class="card"><h4>Import a <span class="nw">running-config</span></h4><p>Every line is kept as it was until you edit it, and the switch model is detected automatically.</p></div>
+        <div class="card"><h4>Import a <span class="nw">running-config</span></h4><p>The switch model is detected, and lines stay exactly as the file had them until you edit them. The import report lists anything that wouldn't come back unchanged.</p></div>
         <div class="card"><h4>Copy and paste ports</h4><p>Right-click a port to copy its settings and paste them onto any selection.</p></div>
         <div class="card"><h4>Scripts and bulk staging</h4><p>Config snippets with variables, Tcl or Python for the switch, and many switches staged from a spreadsheet.</p></div>
       </div>
@@ -485,7 +486,7 @@ footer p{max-width:66ch}
         <div>
           <div class="tags"><span class="tag e">CAT I</span><span class="tag w">CAT II</span><span class="tag i">CAT III</span><span class="tag g">NOT A FINDING</span></div>
           <h3>DISA STIGs, rule by rule</h3>
-          <p>Load the DISA zip, an XCCDF file or a STIG Viewer checklist. Shown here: the Cisco IOS XE Switch L2S STIG, V3R2, checking ACCESS-SW01.</p>
+          <p>Load the DISA zip, an XCCDF file or a STIG Viewer checklist. Shown here: the Cisco IOS XE Switch L2S STIG, V3R2, checking the config generated for ACCESS-SW01.</p>
         </div>
         <ul class="ticks">
           <li><b>Evidence written to the checklist</b>: the config lines behind every result</li>
@@ -542,27 +543,27 @@ footer p{max-width:66ch}
     <div class="sec-head reveal">
       <span class="eyebrow">Deploy</span>
       <h2>Every commit has a way&nbsp;back</h2>
-      <p>Safe Commit sends only the lines that changed. Every commit, from the editor, a drift fix, Bulk or the MAC finder, gets the same approval, backup and checks afterwards.</p>
+      <p>Safe Commit sends only the lines that changed. Every commit, from the editor, a drift fix, Bulk or the MAC finder, goes through the same approval, recovery point and <span class="nw">command-by-command</span> checks. A backup and a before/after check are on by default, except for quick port fixes from the MAC finder.</p>
     </div>
     <div class="duo">
       <figure class="reveal">
-        <div class="frame"><img src="assets/img/commit.webp?v=0.7.0-2" srcset="assets/img/commit.webp?v=0.7.0-2 1x, assets/img/commit@2x.webp?v=0.7.0-2 2x" data-full="assets/img/commit@2x.webp?v=0.7.0-2"
+        <div class="frame"><img src="assets/img/commit.webp?v=0.7.0-3" srcset="assets/img/commit.webp?v=0.7.0-3 1x, assets/img/commit@2x.webp?v=0.7.0-3 2x" data-full="assets/img/commit@2x.webp?v=0.7.0-3"
           width="780" height="840" loading="lazy"
-          alt="54 changes to commit to ACCESS-SW01 (10.0.99.11), saying only these commands will be sent, one at a time, after a copy of the running-config is saved to flash. Pre-flight: switch reachable, a warning under Management access kept that Gi1/0/45-48 and Te1/1/3-8 will be shut down so make sure none is the uplink, then configuration syntax, no STIG regressions, best practices and golden standards passed. Below are the 10 command lines that will be sent, a change ticket field, and options to back up first, schedule a reload in 10 as a safety net, check the switch before and after, and save to startup-config."
+          alt="54 changes to commit to ACCESS-SW01 (10.0.99.11), saying only these commands will be sent, one at a time, after a copy of the running-config is saved to flash. Pre-flight: switch reachable, a warning under Management access kept that Gi1/0/45-48 and Te1/1/3-8 will be shut down so make sure none is the uplink, then configuration syntax, no STIG regressions, best practices and golden standards passed. Below are the 10 command lines that will be sent in 3 interface blocks, the change ticket CHG0042, and options to back up first, schedule a reload in 10 as a safety net, check the switch before and after, and save to startup-config."
           data-cap="Before: only the changed lines, with the pre-flight checks. A warning flags the ports that will be shut down. You can edit the commands before committing."></div>
         <figcaption><b>Before.</b> 54 port changes go out as 10 lines in 3 interface ranges, and the pre-flight warns about the ports being shut down.</figcaption>
       </figure>
       <figure class="reveal">
-        <div class="frame"><img src="assets/img/commit-report.webp?v=0.7.0-2" srcset="assets/img/commit-report.webp?v=0.7.0-2 1x, assets/img/commit-report@2x.webp?v=0.7.0-2 2x" data-full="assets/img/commit-report@2x.webp?v=0.7.0-2"
-          width="640" height="680" loading="lazy"
-          alt="Change deployed and verified on 10.0.99.11 with ticket CHG0042: the same pre-checks, the change with a backup first and a reload-in-10 safety net, and every post-check passed, from still reachable to spanning-tree root unchanged, with an Export report button."
-          data-cap="After: the deployment record, ready for the change ticket."></div>
-        <figcaption><b>After.</b> The record for change CHG0042, with every post-check passed, exportable as HTML.</figcaption>
+        <div class="frame"><img src="assets/img/commit-report.webp?v=0.7.0-3" srcset="assets/img/commit-report.webp?v=0.7.0-3 1x, assets/img/commit-report@2x.webp?v=0.7.0-3 2x" data-full="assets/img/commit-report@2x.webp?v=0.7.0-3"
+          width="640" height="740" loading="lazy"
+          alt="Change deployed and verified on 10.0.99.11 with ticket CHG0042, for a C9300-48P on 17.9.3, with its serial and plan hash. The pre-checks from before the commit are followed by three more that passed: approved for exactly these commands, same switch, and switch unchanged since it was read. The change had a backup first, a reload-in-10 safety net and a recovery point on flash, and the switch accepted all 10 lines. Every post-check passed, from still reachable to spanning-tree root unchanged, with an Export report button."
+          data-cap="After: the deployment record for CHG0042, with the approval, the same-switch check, every line accepted and every post-check passed."></div>
+        <figcaption><b>After.</b> The record for change CHG0042: approved, the same switch, every line accepted and every post-check passed. Exportable as HTML.</figcaption>
       </figure>
     </div>
     <div class="phases reveal">
-      <div class="phase"><span class="k">Pre-flight</span><p>The switch is reachable and nothing cuts off management access. For changes from the editor, the switch must also be the one you read and unchanged since, with no debugger errors and no STIG or <span class="nw">golden-standard</span> regressions.</p></div>
-      <div class="phase"><span class="k">Change</span><p>You approve the exact commands, and risky ones need the hostname typed. A backup and a recovery point come first, then a <span class="nw">reload-in-10</span> safety net (or an <span class="nw">NX-OS</span> checkpoint). Commands go one at a time and stop at the first one the switch refuses.</p></div>
+      <div class="phase"><span class="k">Pre-flight</span><p>The switch is reachable, and any command that could cut off management access is flagged. For changes from the editor, the commit stops if the switch isn't the one you read or has changed since, and debugger errors and STIG or <span class="nw">golden-standard</span> regressions are flagged before you approve.</p></div>
+      <div class="phase"><span class="k">Change</span><p>You approve the exact commands, and risky ones need the hostname typed. A backup and a recovery point (a flash copy, or a checkpoint on <span class="nw">NX-OS</span>) come first, then on IOS and IOS&nbsp;XE a <span class="nw">reload-in-10</span> safety net. Commands go one at a time and stop at the first one the switch refuses.</p></div>
       <div class="phase"><span class="k">Post-check</span><p>Still reachable, every command accepted, and before/after compared: ports, <span class="nw">err-disabled</span>, CDP neighbors, MAC learning, the <span class="nw">spanning-tree</span> root, and OSPF, EIGRP and BGP neighbors. A failed check offers a rollback, confirmed by reading the config back.</p></div>
     </div>
     <p class="note reveal">These safeguards are tested against a simulated switch so far. Try them on a lab switch first, and tell us how it went.</p>
@@ -584,7 +585,7 @@ footer p{max-width:66ch}
         </div>
         <ul class="ticks">
           <li><b>Reachable switches, STIG compliance, open CAT I findings, drift and backups</b> across the top</li>
-          <li><b>The switches that need attention</b>, worst first, with the reason on each row</li>
+          <li><b>The switches that need attention</b>, most urgent first, with the reason on each row</li>
           <li><b>Findings by severity</b>, recent activity from the change log, and your recent projects</li>
         </ul>
       </div>
@@ -604,14 +605,14 @@ footer p{max-width:66ch}
         </div>
         <ul class="ticks">
           <li><b>Core, distribution and access</b> layers, laid out automatically</li>
-          <li><b>Links colored</b> by trunk or routed, and labelled with the port on each end</li>
+          <li><b>Links colored</b> by trunk or routed, and labelled with the port on each end where there's room</li>
           <li><b>Endpoints</b> like phones and access points tucked under their switch behind a badge, and switches that couldn't be read outlined in red</li>
         </ul>
       </div>
       <figure class="reveal">
         <div class="frame"><img src="assets/img/topology.webp?v=0.7.0-2" srcset="assets/img/topology.webp?v=0.7.0-2 1x, assets/img/topology@2x.webp?v=0.7.0-2 2x" data-full="assets/img/topology@2x.webp?v=0.7.0-2"
           width="1545" height="610" loading="lazy"
-          alt="The Topology map: CORE-SW01, WAN-RTR01 and CORE-SW02 in the core layer, DIST-SW01 and DIST-SW02 in distribution, and five access switches below, linked by blue trunk lines and purple routed lines labelled with the port names on each end. ACCESS-SW05 has a dashed red border and says couldn't read, and ACCESS-SW01 and ACCESS-SW02 carry 2 endpoints and 1 endpoint badges."
+          alt="The Topology map: CORE-SW01, WAN-RTR01 and CORE-SW02 in the core layer, DIST-SW01 and DIST-SW02 in distribution, and five access switches below, linked by blue trunk lines and purple routed lines, most labelled with the port names on each end. ACCESS-SW05 has a dashed red border and says couldn't read, and ACCESS-SW01 and ACCESS-SW02 carry 2 endpoints and 1 endpoint badges."
           data-cap="Topology: core, distribution and access layers, with trunks in blue, routed links in purple, and a switch that couldn't be read outlined in red."></div>
       </figure>
     </div>
@@ -622,14 +623,14 @@ footer p{max-width:66ch}
         <p>The changes since a switch's last known-good backup, in plain language, with security-related changes first.</p>
         <ul class="ticks">
           <li><b>Compared with the known-good backup</b>: one saved after a Safe Commit that passed, or marked by hand</li>
-          <li><b>Security changes first</b>, like an SNMP community added, with the community itself removed</li>
+          <li><b>Security changes first</b>, like an SNMP community added, with the community string hidden</li>
           <li><b>Grouped</b> into VLANs and management settings, then the <span class="nw">line-by-line</span> diff</li>
         </ul>
       </div>
       <figure class="reveal">
         <div class="frame"><img src="assets/img/whatchanged.webp?v=0.7.0-2" srcset="assets/img/whatchanged.webp?v=0.7.0-2 1x, assets/img/whatchanged@2x.webp?v=0.7.0-2 2x" data-full="assets/img/whatchanged@2x.webp?v=0.7.0-2"
           width="832" height="824" loading="lazy"
-          alt="What changed on DIST-SW02, from its known-good backup of 2026-10-06 14:12 to its newest backup of 2026-10-13 11:11: 4 changes, 1 touching security. Security-related comes first: an SNMP community was added, its value shown as removed. Then VLAN 77 TEMP-VENDOR was added and an NTP server was replaced, followed by the line-by-line diff with 4 lines added in green and 1 removed in red."
+          alt="What changed on DIST-SW02, from its known-good backup of 2026-10-06 14:12 to its newest backup of 2026-10-13 11:11: 4 changes, 1 touching security. Security-related comes first: an SNMP community was added, its string hidden. Then VLAN 77 TEMP-VENDOR was added, and an NTP server was removed and another added, followed by the line-by-line diff with 4 lines added in green and 1 removed in red."
           data-cap="What changed on DIST-SW02 since its known-good backup: the security change first, then grouped changes and the line-by-line diff."></div>
       </figure>
     </div>
@@ -650,7 +651,7 @@ footer p{max-width:66ch}
         <div class="frame"><img src="assets/img/versions.webp?v=0.7.0-2" srcset="assets/img/versions.webp?v=0.7.0-2 1x, assets/img/versions@2x.webp?v=0.7.0-2 2x" data-full="assets/img/versions@2x.webp?v=0.7.0-2"
           width="1368" height="912" loading="lazy"
           alt="The Versions page: 10 switches, 6 with advisories (1 affected by a critical or high one), 3 at end of sale or support, and every release known exactly. ACCESS-SW01 on IOS XE 17.9.3 is selected: it is marked Affected by the critical IOS XE web UI advisory because its config turns on the web UI, and its release is past support. A note at the bottom says the bundled data is a starter set, with Import data file and Online check links."
-          data-cap="Versions: ACCESS-SW01 is affected by the web UI advisory because its config turns on ip http server."></div>
+          data-cap="Versions: ACCESS-SW01 is affected by the web UI advisory because its config turns on the web UI."></div>
       </figure>
     </div>
 
@@ -674,7 +675,7 @@ footer p{max-width:66ch}
     <div class="sec-head reveal">
       <span class="eyebrow">Built for secure environments</span>
       <h2>Runs on one Windows&nbsp;PC. No cloud, no&nbsp;sign-up.</h2>
-      <p>Backups, project files and saved passwords are encrypted for your Windows account and stay on this PC. It reaches only the switches you name, plus Cisco's advisory service if you turn that on.</p>
+      <p>Backups, project files and saved passwords are encrypted for your Windows account. It connects only to the switches you name and the CDP and LLDP neighbors that topology discovery finds, plus Cisco's advisory service if you turn it on.</p>
     </div>
     <div class="cards reveal">
       <div class="card">
@@ -755,9 +756,9 @@ footer p{max-width:66ch}
       </a>
     </div>
     <div class="steps">
-      <div><b><i>1</i>Check the file</b>Test builds aren't code-signed yet, so compare the hash: run <code>Get-FileHash</code> on the download in PowerShell and find the same value in <code>SHA256SUMS.txt</code>.</div>
+      <div><b><i>1</i>Check the file</b>Test builds aren't code-signed yet, so check that the file arrived intact: run <code>Get-FileHash</code> on the download in PowerShell and find the same value in <code>SHA256SUMS.txt</code>.</div>
       <div><b><i>2</i>If SmartScreen warns you</b>Windows says it protected your PC. Click More info, then Run anyway. If your PC only runs signed apps, ask your admin.</div>
-      <div><b><i>3</i>Load your license</b>On the first screen, open the <code>.sflic</code> file from your invitation and set an admin password, which stays on this PC. Without a license the app opens <span class="nw">read-only</span>.</div>
+      <div><b><i>3</i>Load your license</b>On the first screen, open the <code>.sflic</code> file from your invitation. Then accept the tester agreement and set an admin password, which stays on this PC. Without a license the app opens <span class="nw">read-only</span>.</div>
     </div>
   </div>
 
@@ -782,7 +783,7 @@ footer p{max-width:66ch}
       </details>
       <details>
         <summary>Is it FIPS 140 validated?</summary>
-        <p>No. SwitchForge isn't a validated module and hasn't been through CMVP testing. In FIPS mode it uses only FIPS-approved algorithms: its own encryption goes through Windows CNG, the module covered by Microsoft's FIPS 140 validations, and SSH is limited to approved algorithms.</p>
+        <p>No. SwitchForge isn't a validated module and hasn't been through CMVP testing. In FIPS mode it uses only FIPS-approved algorithms: its own encryption goes through Windows CNG, the module covered by Microsoft's FIPS 140 validations, and SSH is limited to approved algorithms, although the SSH library in these test builds isn't itself a validated module.</p>
       </details>
       <details>
         <summary>Is it code-signed?</summary>
@@ -849,14 +850,16 @@ document.querySelectorAll(".lede, .proof, .flow p, main p, main li, main h3, mai
 });
 
 // Body text: the last word of a paragraph keeps a neighbor or two, so no line holds a single short word
-document.querySelectorAll(".card p, .phase p, .feature .copy>p, .wide-head p, .ticks li, .faq p, .steps>div, figcaption, .note, .dl .ver, .file .fname").forEach(el => {
+document.querySelectorAll(".sec-head p, .card p, .phase p, .feature .copy>p, .wide-head p, .ticks li, .faq p, .steps>div, figcaption, .note, .dl .ver, .file .fname").forEach(el => {
   const walk = document.createTreeWalker(el, NodeFilter.SHOW_TEXT);
   let n, last = null;
   while ((n = walk.nextNode())) if (n.data.trim()) last = n;
   if (!last) return;
   const end = last.data.match(/\s*$/)[0], parts = last.data.slice(0, last.data.length - end.length).split(" ");
+  // Subtitles keep a longer last line than body text
+  const sub = el.matches(".sec-head p"), min = sub ? 18 : 12, most = sub ? 4 : 3;
   let k = 2;
-  while (k < 3 && k < parts.length && parts.slice(-k).join(" ").length < 12) k++;
+  while (k < most && k < parts.length && parts.slice(-k).join(" ").length < min) k++;
   if (parts.length < 2) return;
   last.data = (k >= parts.length ? parts.join("\u00a0") : parts.slice(0, -k).join(" ") + " " + parts.slice(-k).join("\u00a0")) + end;
 });
@@ -884,14 +887,15 @@ fetch("https://api.github.com/repos/" + RELEASES_REPO + "/releases/latest", {hea
     when.textContent = date;
     dlVer.textContent = "Version " + ver + ", released ";
     dlVer.append(when, ". Windows 10 or 11, 64-bit.");
-    setParts(document.getElementById("hero-meta"), ["Version " + ver, "Test builds for invited testers", "Works offline"]);
+    setParts(document.getElementById("hero-meta"), ["Test builds for invited testers", "Version " + ver, "Works offline"]);
     document.getElementById("all-releases").href = rel.html_url;
     document.getElementById("foot-notes").href = rel.html_url;
     document.querySelectorAll(".file").forEach(a => {
       const asset = rel.assets.find(x => x.name.includes(a.dataset.match));
       if (!asset) return;
       a.href = asset.browser_download_url;
-      const mb = asset.size > 1048576 ? " · " + Math.round(asset.size / 1048576) + " MB" : "";
+      // The size stays with the name's dot, so a dot never starts a line
+      const mb = asset.size > 1048576 ? "\u00a0· " + Math.round(asset.size / 1048576) + "\u00a0MB" : "";
       a.querySelector(".fname").textContent = asset.name + mb;
     });
   })

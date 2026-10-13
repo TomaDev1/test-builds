@@ -2,7 +2,7 @@
 
 Early builds of a Windows app for building, checking and pushing Cisco switch and router configs. It checks configs against DISA STIGs as you edit, keeps backups, and sends only the changed lines when you push to a switch. These builds are for invited testers, so expect rough edges.
 
-Download the latest build from **[Releases](../../releases)**. There's a tour of what's in it at **[tomadev1.github.io/test-builds](https://tomadev1.github.io/test-builds/)**.
+Download the latest build from **[Releases](../../releases)**. There's a tour of what's in it on the **[test builds page](https://tomadev1.github.io/test-builds/)**.
 
 ## Which file do I want?
 
@@ -17,7 +17,7 @@ Windows 10 or 11, 64-bit. No other software is needed.
 
 ## Installing
 
-1. **Check the download.** Test builds aren't code-signed yet, so this is how you know the file is the real one. In PowerShell run `Get-FileHash .\SwitchForge-<version>-setup.exe` and compare the result with the line in `SHA256SUMS.txt`.
+1. **Check the download.** Test builds aren't code-signed yet, so check that the file arrived intact. In PowerShell run `Get-FileHash .\SwitchForge-<version>-setup.exe` and compare the result with its line in `SHA256SUMS.txt` from the same release.
 2. **If SmartScreen warns you.** Windows may say "Windows protected your PC". Click **More info**, then **Run anyway**. If your PC only runs signed apps, ask your admin.
 3. **Silent install (optional).** `SwitchForge-<version>-setup.exe /VERYSILENT /SUPPRESSMSGBOXES /NORESTART`
 
