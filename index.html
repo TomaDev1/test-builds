@@ -3,33 +3,43 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<!-- Renaming the product? Change APP_NAME below, plus the name in <title> and the og: tags (link previews read those without running scripts),
-     and re-render assets/og.png, the link preview image, which has the name drawn into it. -->
-<title>SwitchForge · Cisco config, STIG compliance and safe deployment</title>
-<meta name="description" content="Design, check and deploy Cisco switch and router configs offline. Builders for routing, Layer 2, security and QoS, a live debugger, DISA STIG checks with evidence in .ckl/.cklb, and Safe Commit with a way back. Windows, air-gap ready.">
-<meta name="theme-color" content="#1e1e1e">
+<!-- Renaming the product? Change APP_NAME below, plus the name in <title> and in the og:title, og:site_name and og:image:alt tags
+     (link previews read those without running scripts), and re-render assets/og.png, the link preview image, which has the name drawn into it. -->
+<title>SwitchForge · Cisco configs, STIG checks and safe deployment</title>
+<meta name="description" content="Design, check and deploy Cisco configs offline: a live IOS debugger, DISA STIG checks with .ckl/.cklb evidence, and Safe Commit with a way back. Windows.">
+<link rel="canonical" href="https://tomadev1.github.io/test-builds/">
+<meta name="theme-color" content="#17181b">
 <meta property="og:type" content="website">
-<meta property="og:title" content="SwitchForge · Cisco config, STIG compliance and safe deployment">
+<meta property="og:site_name" content="SwitchForge">
+<meta property="og:url" content="https://tomadev1.github.io/test-builds/">
+<meta property="og:title" content="SwitchForge · Cisco configs, STIG checks and safe deployment">
 <meta property="og:description" content="Design, check and deploy Cisco configs offline, with DISA STIG checks, evidence-ready checklists and a way back on every change.">
-<meta property="og:image" content="https://tomadev1.github.io/test-builds/assets/og.png">
+<meta property="og:image" content="https://tomadev1.github.io/test-builds/assets/og.png?v=0.7.0">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="SwitchForge: Change Cisco configs without breaking the network, next to the Design page">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://tomadev1.github.io/test-builds/assets/og.png?v=0.7.0">
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="icon" href="assets/favicon-32.png" type="image/png" sizes="32x32">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<link rel="preload" href="assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
 <script>
   // ---- Site settings ------------------------------------------------------------
   const APP_NAME = "SwitchForge";               // product name shown on the page
   const RELEASES_REPO = "TomaDev1/test-builds";  // public repo whose Releases hold the builds
   // -------------------------------------------------------------------------------
+  document.documentElement.classList.add("js");
 </script>
 <style>
+/* Inter and JetBrains Mono, served from this site (SIL Open Font License, see assets/fonts) */
+@font-face{font-family:"Inter";src:url(assets/fonts/inter-latin.woff2) format("woff2");font-weight:400 800;font-style:normal;font-display:swap}
+@font-face{font-family:"JetBrains Mono";src:url(assets/fonts/jetbrains-mono-latin.woff2) format("woff2");font-weight:500 600;font-style:normal;font-display:swap}
 :root{
   --bg:#17181b; --bg2:#1e1f22; --panel:#232428; --panel2:#2b2d31; --panel3:#313338; --line:#34363c; --line2:#41434a;
   --text:#f2f3f5; --muted:#b5bac1; --dim:#8b9099;
   --accent:#049fd9; --accent2:#45b6ee; --accent-bg:rgba(4,159,217,.12);
+  --btn:#0679b8; --btn-hover:#0a6aa1;
   --ok:#4cc38a; --warn:#f0a020; --err:#f06a6f;
   --sans:"Inter",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
   --mono:"JetBrains Mono",ui-monospace,"Cascadia Code",Consolas,monospace;
@@ -42,6 +52,10 @@ a{color:var(--accent2);text-decoration:none}
 a:hover{text-decoration:underline}
 img{max-width:100%;display:block;height:auto}
 h1,h2,h3,h4,p{margin:0}
+/* No lone words on the last line: headings and subtitles balance their lines, body text avoids orphans */
+h1,h2,h3,h4,.lede,.sec-head p,.wide-head p,.faq summary,.meta,.proof b,.proof b+span,.flow p,.dl .ver,.pill>span,.steps b,figcaption{text-wrap:balance}
+p,li{text-wrap:pretty}
+.nw{white-space:nowrap}
 code{font:500 .86em var(--mono);background:var(--panel3);border:1px solid var(--line);padding:1px 6px;border-radius:5px;color:var(--text);white-space:nowrap}
 :focus-visible{outline:2px solid var(--accent2);outline-offset:3px;border-radius:6px}
 .wrap{max-width:1200px;margin:0 auto;padding:0 28px}
@@ -63,8 +77,8 @@ code{font:500 .86em var(--mono);background:var(--panel3);border:1px solid var(--
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;padding:12px 20px;border-radius:10px;font:600 15px/1.2 var(--sans);border:1px solid transparent;cursor:pointer;white-space:nowrap;transition:background .15s,border-color .15s}
 .btn:hover{text-decoration:none}
 .btn svg{width:18px;height:18px;flex:none}
-.btn.primary{background:var(--accent);color:#fff;box-shadow:0 8px 28px -10px rgba(4,159,217,.8)}
-.btn.primary:hover{background:#0b8fc2}
+.btn.primary{background:var(--btn);color:#fff;box-shadow:0 8px 28px -10px rgba(4,159,217,.8)}
+.btn.primary:hover{background:var(--btn-hover)}
 .btn.ghost{border-color:var(--line2);color:var(--text);background:var(--panel)}
 .btn.ghost:hover{background:var(--panel2);border-color:#4d5058}
 .btn.sm{padding:8px 15px;font-size:14px;border-radius:9px}
@@ -79,17 +93,17 @@ code{font:500 .86em var(--mono);background:var(--panel3);border:1px solid var(--
 .hero>*{position:relative}
 .pill{display:inline-flex;align-items:center;gap:9px;font:600 12px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--accent2);background:var(--accent-bg);border:1px solid rgba(69,182,238,.28);padding:8px 13px;border-radius:999px}
 .pill i{width:7px;height:7px;border-radius:50%;background:var(--ok);box-shadow:0 0 0 3px rgba(76,195,138,.2)}
-.hero h1{font-size:clamp(36px,5.6vw,64px);line-height:1.04;letter-spacing:-.035em;font-weight:800;margin:24px auto 0;max-width:15ch}
+.hero h1{font-size:clamp(36px,5.6vw,64px);line-height:1.04;letter-spacing:-.035em;font-weight:800;margin:24px auto 0;max-width:20ch}
 .hero h1 em{font-style:normal;background:linear-gradient(90deg,#45b6ee,#8ad6f8);-webkit-background-clip:text;background-clip:text;color:transparent}
 .lede{font-size:clamp(17px,2vw,20px);color:var(--muted);max-width:60ch;margin:22px auto 0;line-height:1.6}
 .cta{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:34px}
 .meta{margin-top:16px;font-size:14px;color:var(--dim)}
 .shot-hero{margin:56px auto 0;max-width:1140px}
-.window{border-radius:12px;overflow:hidden;background:var(--panel);border:1px solid var(--line2);box-shadow:0 40px 100px -30px rgba(0,0,0,.8),0 0 140px -40px rgba(4,159,217,.35)}
-.window .bar{display:flex;align-items:center;gap:7px;padding:10px 14px;background:#1b1c1f;border-bottom:1px solid var(--line)}
-.window .bar i{width:11px;height:11px;border-radius:50%;background:#3a3c42}
-.window .bar span{margin-left:10px;font:500 12px var(--mono);color:var(--dim);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.window img{width:100%;cursor:zoom-in}
+.bar{display:flex;align-items:center;gap:7px;padding:10px 14px;background:#1b1c1f;border-bottom:1px solid var(--line)}
+.bar i{width:11px;height:11px;border-radius:50%;background:#3a3c42;flex:none}
+.bar span{min-width:0;margin-left:10px;font:500 12px var(--mono);color:var(--dim);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.window{position:relative;border-radius:12px;overflow:hidden;background:var(--panel);border:1px solid var(--line2);box-shadow:0 40px 100px -30px rgba(0,0,0,.8),0 0 140px -40px rgba(4,159,217,.35)}
+.window img{width:100%}
 
 /* ---------- proof strip + workflow ---------- */
 .proof{display:grid;grid-template-columns:repeat(4,1fr);margin-top:64px;border:1px solid var(--line);border-radius:14px;background:var(--bg2)}
@@ -97,7 +111,7 @@ code{font:500 .86em var(--mono);background:var(--panel3);border:1px solid var(--
 .proof>div:last-child{border-right:0}
 .proof svg{width:22px;height:22px;flex:none;color:var(--accent2);margin-top:2px}
 .proof b{display:block;font-size:15px;font-weight:600}
-.proof span{display:block;font-size:13.5px;color:var(--dim);line-height:1.45;margin-top:2px}
+.proof b+span{display:block;font-size:13.5px;color:var(--dim);line-height:1.45;margin-top:2px}
 .flow{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-top:16px}
 .flow a{display:block;padding:20px 18px 18px;background:var(--panel);border:1px solid var(--line);border-radius:12px;color:var(--text);transition:border-color .15s,transform .15s,background .15s;text-align:left}
 .flow a:hover{border-color:rgba(69,182,238,.5);background:var(--panel2);text-decoration:none;transform:translateY(-2px)}
@@ -129,15 +143,21 @@ section{padding:112px 0 0}
 .ticks li b{color:var(--text);font-weight:600}
 .tags{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px}
 .tag{font:700 11px/1 var(--mono);padding:5px 7px;border-radius:5px;color:#fff;letter-spacing:.02em}
-.tag.e{background:#d93f44}.tag.w{background:#c98410}.tag.i{background:#0a7fc0}.tag.c{background:#7c5cd6}.tag.g{background:#2f9e6e}
+.tag.e{background:#c9373c}.tag.w{background:#9e680b}.tag.i{background:#0577b5}.tag.c{background:#7c5cd6}.tag.g{background:#227f57}
 
 figure{margin:0}
-.frame{position:relative;border-radius:12px;overflow:hidden;background:var(--panel);border:1px solid var(--line2);box-shadow:0 24px 60px -24px rgba(0,0,0,.75)}
-.frame img{width:100%;cursor:zoom-in;transition:transform .35s ease}
+/* Frames shrink to their screenshot, so a small one is never stretched past its own size */
+.frame{position:relative;width:fit-content;max-width:100%;border-radius:12px;overflow:hidden;background:var(--panel);border:1px solid var(--line2);box-shadow:0 24px 60px -24px rgba(0,0,0,.75)}
+.frame img{transition:transform .35s ease}
 .frame:hover img{transform:scale(1.012)}
-.frame .zoom{position:absolute;right:10px;bottom:10px;display:flex;align-items:center;gap:6px;font:600 12px var(--sans);color:var(--text);background:rgba(23,24,27,.86);border:1px solid var(--line2);padding:5px 9px;border-radius:7px;opacity:0;transition:opacity .2s;pointer-events:none}
-.frame:hover .zoom{opacity:1}
-.frame.light{background:#fff;border-color:#c9d0d8}
+.frame.doc{background:#1b1c1f;padding:0 12px 12px}
+.frame.doc .bar{margin:0 -12px 12px}
+.frame.doc img{border-radius:6px}
+.js .frame img,.js .window img{cursor:zoom-in}
+.frame:has(img:focus-visible),.window:has(img:focus-visible){outline:2px solid var(--accent2);outline-offset:3px}
+.zoom{position:absolute;right:10px;bottom:10px;display:flex;align-items:center;gap:6px;font:600 12px var(--sans);color:var(--text);background:rgba(23,24,27,.86);border:1px solid var(--line2);padding:5px 9px;border-radius:7px;opacity:0;transition:opacity .2s;pointer-events:none}
+.frame:hover .zoom,.window:hover .zoom{opacity:1}
+@media (hover:none){.zoom{opacity:1}}
 figcaption{font-size:13.5px;color:var(--dim);margin-top:12px;line-height:1.5}
 figcaption b{color:var(--muted);font-weight:600}
 
@@ -160,10 +180,10 @@ figcaption b{color:var(--muted);font-weight:600}
 
 .models{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
 .model{background:var(--bg2);border:1px solid var(--line);border-radius:12px;padding:18px 20px}
-.model h4{font:600 12px var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--accent2);margin-bottom:10px}
+.model h3{font:600 12px var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--accent2);margin-bottom:10px}
 .model ul{margin:0;padding:0;list-style:none;display:grid;gap:5px}
 .model li{font-size:14.5px;color:var(--muted)}
-.note{font-size:14px;color:var(--dim);margin-top:16px}
+.note{font-size:14px;color:var(--dim);margin-top:16px;max-width:90ch}
 
 /* ---------- download ---------- */
 .dl{margin-top:120px;position:relative;overflow:hidden;background:linear-gradient(180deg,#22252b,#1c1d21);border:1px solid var(--line2);border-radius:20px;padding:52px}
@@ -178,10 +198,11 @@ figcaption b{color:var(--muted);font-weight:600}
 .file>div{min-width:0}
 .file .fi{width:42px;height:42px;flex:none;border-radius:10px;display:grid;place-items:center;background:var(--panel2);color:var(--accent2)}
 .file .fi svg{width:21px;height:21px}
-.file b{display:block;font-size:15.5px;font-weight:600}
-.file span{display:block;font-size:13px;color:var(--dim);overflow-wrap:anywhere}
+.file b{display:flex;align-items:center;gap:8px;flex-wrap:wrap;font-size:15.5px;font-weight:600}
+.file .fname{display:block;font-size:13px;color:var(--dim);overflow-wrap:anywhere}
 .file.main{border-color:rgba(4,159,217,.6);background:rgba(4,159,217,.08)}
-.file.main .fi{background:var(--accent);color:#fff}
+.file.main .fi{background:var(--btn);color:#fff}
+.chip{font:600 10.5px/1 var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--accent2);background:var(--accent-bg);border:1px solid rgba(69,182,238,.3);padding:4px 7px;border-radius:999px}
 .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;margin-top:36px;padding-top:30px;border-top:1px solid var(--line)}
 .steps>div{font-size:14.5px;color:var(--muted);line-height:1.55}
 .steps b{display:flex;align-items:center;gap:10px;color:var(--text);margin-bottom:6px;font-size:15.5px}
@@ -198,17 +219,23 @@ figcaption b{color:var(--muted);font-weight:600}
 .faq details p{color:var(--muted);padding:0 2px 22px;max-width:72ch}
 
 footer{margin-top:120px;border-top:1px solid var(--line);padding:36px 0 48px;color:var(--dim);font-size:13.5px}
-footer .wrap{display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap;align-items:flex-start}
+footer .wrap{display:flex;justify-content:space-between;gap:24px 48px;flex-wrap:wrap;align-items:flex-start}
 footer .brand{font-size:15px}
 footer .brand img{width:24px;height:24px}
 footer p{max-width:66ch}
+.foot-links{display:flex;flex-wrap:wrap;gap:6px 22px;margin-top:14px;font-size:14px}
+.foot-links a{color:var(--muted)}
+.foot-links a:hover{color:var(--text)}
 
 /* ---------- lightbox ---------- */
-#lb{position:fixed;inset:0;background:rgba(10,10,12,.93);display:none;flex-direction:column;align-items:center;justify-content:center;padding:28px 72px;z-index:50}
+#lb{position:fixed;inset:0;background:rgba(10,10,12,.94);display:none;flex-direction:column;align-items:center;justify-content:center;padding:20px 72px;z-index:50}
 #lb.on{display:flex}
-#lb img{max-height:82vh;max-width:100%;width:auto;border-radius:10px;box-shadow:0 30px 80px rgba(0,0,0,.7);cursor:zoom-out;background:var(--panel)}
+#lb img{max-height:calc(100vh - 120px);max-width:100%;width:auto;border-radius:10px;box-shadow:0 30px 80px rgba(0,0,0,.7);cursor:zoom-in;background:var(--panel)}
 #lb p{color:var(--muted);font-size:14.5px;margin-top:16px;text-align:center;max-width:80ch}
-#lb button{position:absolute;background:rgba(43,45,49,.92);border:1px solid var(--line2);color:var(--text);width:44px;height:44px;border-radius:50%;cursor:pointer;font:400 24px/1 var(--sans)}
+#lb.zoomed{display:block;overflow:auto;padding:24px}
+#lb.zoomed img{max-width:none;max-height:none;margin:0 auto;cursor:zoom-out}
+#lb.zoomed p{margin:16px auto 64px}
+#lb button{position:fixed;z-index:1;background:rgba(43,45,49,.92);border:1px solid var(--line2);color:var(--text);width:44px;height:44px;border-radius:50%;cursor:pointer;font:400 24px/1 var(--sans)}
 #lb button:hover{background:var(--panel3)}
 #lb .x{top:18px;right:18px}
 #lb .prev{left:16px;top:calc(50% - 22px)}
@@ -224,26 +251,34 @@ footer p{max-width:66ch}
 }
 
 /* ---------- responsive ---------- */
+@media (min-width:601px){
+  .hero h1 em{display:block}
+}
 @media (max-width:1020px){
-  .feature,.feature.flip{grid-template-columns:1fr;gap:28px;margin-bottom:80px}
+  .feature,.feature.flip{grid-template-columns:minmax(0,1fr);gap:28px;margin-bottom:80px}
   .feature.flip .copy{order:0}
   .wide-head{grid-template-columns:1fr;gap:4px}
   .wide-head .ticks{margin-top:20px}
-  .flow{grid-template-columns:repeat(3,1fr)}
+  .feature .copy>p,.wide-head p,.ticks{max-width:68ch}
+  .flow{grid-template-columns:repeat(6,1fr)}
+  .flow a{grid-column:span 2}
+  .flow a:nth-child(n+4){grid-column:span 3}
   .proof{grid-template-columns:1fr 1fr}
   .proof>div:nth-child(2){border-right:0}
   .proof>div:nth-child(-n+2){border-bottom:1px solid var(--line)}
   .cards,.cards.four,.models{grid-template-columns:1fr 1fr}
-  .duo{grid-template-columns:1fr}
+  .cards>.card:last-child:nth-child(odd){grid-column:span 2}
+  .duo{grid-template-columns:minmax(0,1fr)}
   .also{margin-top:-32px}
 }
 @media (max-width:820px){
-  .menu-btn{display:block}
+  .menu-btn{display:block;order:2;margin-left:0}
+  .top .btn.sm{margin-left:auto}
   .links{display:none;position:absolute;top:64px;left:0;right:0;flex-direction:column;gap:0;background:var(--bg2);border-bottom:1px solid var(--line);padding:8px 16px 14px}
   .links.open{display:flex}
+  .top:has(.links.open){background:var(--bg2)}
   .links a{padding:12px 10px;font-size:16px}
-  .top .btn.sm{display:none}
-  .phases,.steps{grid-template-columns:1fr}
+  .phases,.steps,.files{grid-template-columns:1fr}
   .steps{gap:20px}
   #lb{padding:24px 12px 84px}
   #lb .prev,#lb .next{top:auto;bottom:22px}
@@ -251,13 +286,17 @@ footer p{max-width:66ch}
   #lb .next{right:calc(50% - 56px)}
 }
 @media (max-width:600px){
+  .hero h1{font-size:min(36px,9vw)}
   .wrap{padding:0 16px}
+  .top .wrap{gap:12px}
   .hero{padding-top:56px}
   .cta .btn{width:100%}
   .shot-hero{margin-top:40px}
   .flow{grid-template-columns:1fr 1fr}
+  .flow a,.flow a:nth-child(n+4){grid-column:auto}
   .flow a:last-child{grid-column:span 2}
   .proof,.cards,.cards.four,.models,.files{grid-template-columns:1fr}
+  .cards>.card:last-child:nth-child(odd){grid-column:auto}
   .proof>div{border-right:0;border-bottom:1px solid var(--line)}
   .proof>div:nth-child(2){border-bottom:1px solid var(--line)}
   .proof>div:last-child{border-bottom:0}
@@ -269,21 +308,36 @@ footer p{max-width:66ch}
   .faq summary{font-size:16px}
   footer{margin-top:96px}
 }
+@media (max-width:380px){
+  .flow{grid-template-columns:1fr}
+  .flow a:last-child{grid-column:auto}
+  .top .wrap{gap:10px}
+  .top .btn.sm{padding:8px 12px}
+  .menu-btn{width:38px}
+}
+
+/* ---------- print: everything visible, no nav or overlay ---------- */
+@media print{
+  .js .reveal{opacity:1!important;transform:none!important;transition:none!important}
+  .hero h1 em{background:none;color:#0577b5}
+  .top,#lb,.zoom{display:none!important}
+  .feature,.frame,.card,.phase,.model,.dl,.faq details{break-inside:avoid}
+}
 </style>
 </head>
 <body>
 
 <div class="top" id="nav">
   <div class="wrap">
-    <a class="brand" href="#top" aria-label="Back to top"><img src="assets/favicon.svg" alt=""><span class="app-name">SwitchForge</span></a>
+    <a class="brand" href="#top" aria-label="SwitchForge, back to top"><img src="assets/favicon.svg" alt=""><span class="app-name">SwitchForge</span></a>
     <button class="menu-btn" id="menu-btn" aria-label="Menu" aria-expanded="false" aria-controls="links">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
     </button>
     <nav class="links" id="links" aria-label="Sections">
       <a href="#build">Build</a>
+      <a href="#compliance">Comply</a>
       <a href="#deploy">Deploy</a>
-      <a href="#compliance">Compliance</a>
-      <a href="#fleet">Fleet</a>
+      <a href="#fleet">Verify</a>
       <a href="#security">Security</a>
       <a href="#faq">FAQ</a>
     </nav>
@@ -293,7 +347,7 @@ footer p{max-width:66ch}
 
 <header class="hero" id="top">
   <div class="wrap">
-    <span class="pill"><i></i>Tester preview · Windows 10 and 11</span>
+    <span class="pill"><i></i><span>Tester preview · <span class="nw">Windows 10 and 11</span></span></span>
     <h1>Change Cisco configs <em>without breaking the network</em></h1>
     <p class="lede">Design switch configs by clicking ports, catch mistakes as you type, check every change against DISA STIGs, and deploy only the difference, with a backup and a way back.</p>
     <div class="cta">
@@ -303,29 +357,30 @@ footer p{max-width:66ch}
       </a>
       <a class="btn ghost" href="#compliance">See the STIG checks</a>
     </div>
-    <p class="meta" id="hero-meta">Test builds for invited testers · Works offline · No account</p>
+    <p class="meta" id="hero-meta"><span class="nw">Test builds for invited testers</span>&nbsp;· <span class="nw">Works offline</span>&nbsp;· <span class="nw">No sign-up</span></p>
 
     <figure class="shot-hero reveal">
       <div class="window">
-        <div class="bar"><i></i><i></i><i></i><span>Design · ACCESS-SW01 · Catalyst C9300-48P</span></div>
-        <img src="assets/img/design.webp?v=0.7.0" width="1600" height="930" fetchpriority="high"
-             alt="The Design page. A 48-port Catalyst front panel with ports 1 to 24 selected, a table listing each selected port with its description, mode, VLAN 10 USERS, voice VLAN 20, PoE and BPDU guard, and port settings on the right: access mode, data VLAN 10, voice VLAN 20, PortFast and BPDU guard on, and the config lines for these ports."
+        <div class="bar"><i></i><i></i><i></i><span>Design · ACCESS-SW01 · Catalyst C9300-48P + NM-8X</span></div>
+        <img src="assets/img/design.webp?v=0.7.0-2" srcset="assets/img/design.webp?v=0.7.0-2 1x, assets/img/design@2x.webp?v=0.7.0-2 2x" data-full="assets/img/design@2x.webp?v=0.7.0-2"
+             width="1600" height="930" fetchpriority="high"
+             alt="The Design page for ACCESS-SW01, a Catalyst C9300-48P with an NM-8X uplink module. Ports 1 to 24 are selected on the front panel and listed one per row with description USER, access mode, VLAN 10 USERS, voice VLAN 20, PoE Auto and BPDU guard. Port settings on the right show access mode, data VLAN 10, voice VLAN 20, PortFast and BPDU guard on, and the config lines for these ports."
              data-cap="Design: ports 1 to 24 selected on the front panel, listed one per row, with their settings on the right and the config lines they produce underneath.">
       </div>
     </figure>
 
     <div class="proof reveal">
-      <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12h3m14 0h3M5 12a7 7 0 0 1 14 0"/><path d="m3 3 18 18"/></svg><div><b>Air-gap ready</b><span>No internet, no account, no telemetry</span></div></div>
+      <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12h3m14 0h3M5 12a7 7 0 0 1 14 0"/><path d="m3 3 18 18"/></svg><div><b>Air-gap ready</b><span>No internet, no <span class="nw">sign-up</span>, no telemetry</span></div></div>
       <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 4 6v6c0 5 3.5 8 8 9 4.5-1 8-4 8-9V6l-8-3z"/><path d="m9 12 2 2 4-4"/></svg><div><b>FIPS mode</b><span>Approved SSH algorithms only</span></div></div>
       <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg><div><b>DISA STIGs</b><span>Evidence in every .ckl and .cklb</span></div></div>
-      <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6M8 13h8M8 17h5"/></svg><div><b>SBOM included</b><span>CycloneDX and SHA-256 per release</span></div></div>
+      <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6M8 13h8M8 17h5"/></svg><div><b>SBOM included</b><span>CycloneDX and <span class="nw">SHA-256</span> per release</span></div></div>
     </div>
 
     <nav class="flow reveal" aria-label="Workflow">
-      <a href="#build"><span class="n">01</span><b>Design</b><p>Ports, routing, ACLs, QoS and more. No switch needed.</p></a>
+      <a href="#build"><span class="n">01</span><b>Build</b><p>Ports, routing, ACLs, QoS and more. No switch needed.</p></a>
       <a href="#debugger"><span class="n">02</span><b>Validate</b><p>A debugger checks every line as you type.</p></a>
-      <a href="#compliance"><span class="n">03</span><b>Comply</b><p>DISA STIGs with evidence and one-click fixes.</p></a>
-      <a href="#deploy"><span class="n">04</span><b>Deploy</b><p>Safe Commit sends only the delta.</p></a>
+      <a href="#compliance"><span class="n">03</span><b>Comply</b><p>DISA STIGs with evidence and <span class="nw">one-click</span> fixes.</p></a>
+      <a href="#deploy"><span class="n">04</span><b>Deploy</b><p>Safe Commit sends only the changed lines.</p></a>
       <a href="#fleet"><span class="n">05</span><b>Verify</b><p>Fleet status, drift, versions and topology.</p></a>
     </nav>
   </div>
@@ -346,45 +401,47 @@ footer p{max-width:66ch}
         <div>
           <div class="tags"><span class="tag e">ERROR</span><span class="tag w">WARNING</span><span class="tag i">INFO</span><span class="tag c">COMPLIANCE</span></div>
           <h3>A debugger that knows IOS</h3>
-          <p>Every line is checked as you type. Problem lines are underlined in the editor, and the debugger lists each issue with a <b>Why?</b> that explains it.</p>
+          <p>Every line is checked as you type. Problem lines are underlined in the editor, and the debugger lists each issue. Pick one to see why it's a problem.</p>
         </div>
         <ul class="ticks">
           <li><b>Invalid values</b>, like an NTP server of 10.20.30.999 or a static route to a next hop of 10.20.400.1</li>
-          <li><b>Settings IOS would reject</b>, like a spanning-tree priority of 4097</li>
+          <li><b>Settings IOS would reject</b>, like a <span class="nw">spanning-tree</span> priority of 4097</li>
           <li><b>Overlapping subnets</b>, like a VLAN interface that overlaps the management network</li>
           <li><b>Open STIG findings</b> on their own Compliance tab, next to the problems</li>
         </ul>
       </div>
       <figure class="reveal">
-        <div class="frame"><img src="assets/img/debugger.webp?v=0.7.0" width="1368" height="912" loading="lazy"
-          alt="The Configuration page with a test config loaded: the Global form on the left, the config text in the middle, and the debugger underneath listing 21 problems, including an invalid NTP server, an invalid static route next hop, spanning-tree priority 4097 and Vlan10 overlapping the management subnet. On the right, Why is this a problem? explains that 10.20.30.999 isn't a valid IPv4 address, with Show in text and Edit in Design buttons."
-          data-cap="A test config full of deliberate mistakes: 21 problems listed under the editor, and the Why? panel explaining the invalid NTP server, with Show in text and Edit in Design."><span class="zoom">Click to enlarge</span></div>
+        <div class="frame"><img src="assets/img/debugger.webp?v=0.7.0-2" srcset="assets/img/debugger.webp?v=0.7.0-2 1x, assets/img/debugger@2x.webp?v=0.7.0-2 2x" data-full="assets/img/debugger@2x.webp?v=0.7.0-2"
+          width="1368" height="912" loading="lazy"
+          alt="The Configuration page with a test config loaded: the Global form on the left, the config text in the middle, and the debugger underneath listing 21 problems, including an invalid NTP server, an invalid static route next hop, spanning-tree priority 4097 and Vlan10 overlapping the management subnet, with 14 more on its Compliance tab. On the right, Why is this a problem? explains that 10.20.30.999 isn't a valid IPv4 address, with Show in text and Edit in Design buttons."
+          data-cap="A test config full of deliberate mistakes: 21 problems listed under the editor, and the panel explaining why the NTP server is invalid, with Show in text and Edit in Design."></div>
         <figcaption>A test config full of deliberate mistakes, with the reason for the selected one on the right.</figcaption>
       </figure>
     </div>
 
     <div class="feature">
       <div class="copy reveal">
-        <h3>Routing builders: OSPF, EIGRP and BGP</h3>
+        <h3>Routing builders: OSPF, EIGRP and&nbsp;BGP</h3>
         <p>Every part of the config has a form, listed down the left with its status. Shown here: BGP on an edge switch with an ISP neighbor and an iBGP peer.</p>
         <ul class="ticks">
-          <li><b>Neighbors</b> with their remote AS, description and update source, and switches for activate, next-hop-self and shutdown</li>
+          <li><b>Neighbors</b> with their remote AS, description and update source, and switches for activate, <span class="nw">next-hop-self</span> and shutdown</li>
           <li><b>Networks to advertise</b>, one row each</li>
-          <li><b>Lines the form doesn't show</b>, like passwords and route maps, kept exactly as written</li>
-          <li><b>Imports stay exact</b>: a config you load is written back line for line until you edit it</li>
+          <li><b>Lines the form doesn't show</b>, like a neighbor's password or route map, kept exactly as written</li>
+          <li><b>Plain-language help</b> on every card, like which neighbors are iBGP and which are eBGP</li>
         </ul>
       </div>
       <figure class="reveal">
-        <div class="frame"><img src="assets/img/routing.webp?v=0.7.0" width="1080" height="900" loading="lazy"
-          alt="The Global configuration form with its section list on the left, Routing selected and marked OSPF + BGP. The BGP card shows router bgp 65010 with router ID 10.255.0.11, a neighbor 203.0.113.1 in AS 64999 described as ISP-A CIRCUIT 4471 with its password and route-map lines kept, a neighbor 10.255.0.12 in AS 65010 described as EDGE-02 with update source Loopback0 and next-hop-self on, and network 10.31.0.0 mask 255.255.0.0."
-          data-cap="BGP on an edge switch: an eBGP neighbor to the ISP and an iBGP peer, with the lines the form doesn't show kept as written."><span class="zoom">Click to enlarge</span></div>
+        <div class="frame"><img src="assets/img/routing.webp?v=0.7.0-2" srcset="assets/img/routing.webp?v=0.7.0-2 1x, assets/img/routing@2x.webp?v=0.7.0-2 2x" data-full="assets/img/routing@2x.webp?v=0.7.0-2"
+          width="1080" height="852" loading="lazy"
+          alt="The Global configuration form with its Sections list on the left, Routing selected and marked OSPF + BGP. The BGP card explains that a neighbor in the same AS is iBGP and one in another AS is eBGP, then shows router bgp 65010 with router ID 10.255.0.11, a neighbor 203.0.113.1 in AS 64999 described as ISP-A CIRCUIT 4471 with its password and route-map lines kept, a neighbor 10.255.0.12 in AS 65010 described as EDGE-02 with update source Loopback0 and next-hop-self on, and network 10.31.0.0 mask 255.255.0.0."
+          data-cap="BGP on an edge switch: an eBGP neighbor to the ISP and an iBGP peer, with the lines the form doesn't show kept as written."></div>
       </figure>
     </div>
 
     <div class="feature flip">
       <div class="copy reveal">
         <h3>ACLs without the guesswork</h3>
-        <p>Build named standard and extended ACLs one rule per row, with the generated CLI underneath.</p>
+        <p>Build named standard and extended ACLs rule by rule, with the generated CLI underneath.</p>
         <ul class="ticks">
           <li><b>Extended rules</b> with protocol, source, destination and ports</li>
           <li><b>Reorder rules</b> by dragging the handle or with the arrows</li>
@@ -393,52 +450,26 @@ footer p{max-width:66ch}
         </ul>
       </div>
       <figure class="reveal">
-        <div class="frame"><img src="assets/img/acl.webp?v=0.7.0" width="1080" height="1000" loading="lazy"
-          alt="The ACL builder. Extended ACL USERS-IN has a remark, a logged deny ip from 10.0.10.0/24 to 10.0.99.0/24, a permit udp from any to any eq bootps and a permit ip any any, each with a drag handle and arrows. It is applied to interface Vlan10 inbound, with the generated CLI underneath."
-          data-cap="ACL builder: extended ACL USERS-IN, applied to Vlan10 inbound, with its generated CLI."><span class="zoom">Click to enlarge</span></div>
+        <div class="frame"><img src="assets/img/acl.webp?v=0.7.0-2" srcset="assets/img/acl.webp?v=0.7.0-2 1x, assets/img/acl@2x.webp?v=0.7.0-2 2x" data-full="assets/img/acl@2x.webp?v=0.7.0-2"
+          width="784" height="912" loading="lazy"
+          alt="The ACL builder. Extended ACL USERS-IN has a remark, Users can't reach the management VLAN, then a logged deny ip from 10.0.10.0/24 to 10.0.99.0/24, a permit udp from any to any eq bootps and a permit ip any any, each with a drag handle and arrows. Below are Add rule, Add remark and Add deny any (logged) buttons, the VTY lines option, the ACL applied to interface Vlan10 (USERS) inbound, and the generated CLI."
+          data-cap="ACL builder: extended ACL USERS-IN, applied to Vlan10 inbound, with its generated CLI."></div>
       </figure>
     </div>
 
     <div class="also">
-      <div class="also-h reveal">Also in Build</div>
-      <div class="cards four reveal">
+      <h3 class="also-h reveal">Also in Build</h3>
+      <div class="cards reveal">
+        <div class="card"><h4>Routing policy</h4><p>Key chains, prefix lists and route maps, with checks for undefined, unused and deny-only items, and for routing neighbors that are unauthenticated or use MD5.</p></div>
         <div class="card"><h4>Layer 2</h4><p>Spanning tree priorities and MST regions, EtherChannel with LACP, UDLD, CDP and LLDP, and storm control.</p></div>
-        <div class="card"><h4>Access security</h4><p>RADIUS and TACACS+ server groups, 802.1X with a lockout check, DHCP snooping and ARP inspection trust, CoPP and IPv6 first hop.</p></div>
+        <div class="card"><h4>Access security</h4><p>RADIUS and TACACS+ server groups, 802.1X with a warning if it could cut off management, DHCP snooping and ARP inspection trust, CoPP, and IPv6 RA guard and DHCPv6 guard on IOS&nbsp;XE.</p></div>
         <div class="card"><h4>QoS</h4><p>Class maps, policy maps and service policies, with a voice preset for ports with a voice VLAN.</p></div>
-        <div class="card"><h4>Gateways and DHCP</h4><p>HSRP and VRRP, DHCP relay and pools, and VRF-lite, with a check of the differences between a pair of switches.</p></div>
+        <div class="card"><h4>Gateways and DHCP</h4><p>HSRP and VRRP, DHCP relay and pools, and VRF-lite. Compare with peer lists the HSRP or VRRP differences between two switches.</p></div>
         <div class="card"><h4>Management and monitoring</h4><p>SNMPv3, syslog, NetFlow, SPAN and RSPAN, stack provisioning and PoE per port.</p></div>
-        <div class="card"><h4>Import a running-config</h4><p>Every line is kept as it was, and the switch model is detected automatically.</p></div>
+        <div class="card"><h4>Import a <span class="nw">running-config</span></h4><p>The switch model is detected, and lines stay exactly as the file had them until you edit them. The import report lists anything that wouldn't come back unchanged.</p></div>
         <div class="card"><h4>Copy and paste ports</h4><p>Right-click a port to copy its settings and paste them onto any selection.</p></div>
         <div class="card"><h4>Scripts and bulk staging</h4><p>Config snippets with variables, Tcl or Python for the switch, and many switches staged from a spreadsheet.</p></div>
       </div>
-    </div>
-  </section>
-
-  <!-- ===================== DEPLOY ===================== -->
-  <section id="deploy">
-    <div class="sec-head reveal">
-      <span class="eyebrow">Deploy</span>
-      <h2>Every change has a way back</h2>
-      <p>Safe Commit sends only the lines that changed. Commits from the editor, a drift fix, Bulk or the MAC finder all take the same path.</p>
-    </div>
-    <div class="duo">
-      <figure class="reveal">
-        <div class="frame"><img src="assets/img/commit.webp?v=0.7.0" width="780" height="840" loading="lazy"
-          alt="Commit to ACCESS-SW01: 54 changes in 3 interface blocks. Pre-flight: switch reachable, a warning that ports Gi1/0/45-48 and Te1/1/3-8 will be shut down so make sure none is the uplink, then configuration syntax, no STIG regressions, best practices and golden standards passed. Below are the 10 command lines that will be sent, a change ticket field, and backup, safety net and before/after check options."
-          data-cap="Before: only the delta, with the pre-flight checks. A warning flags the ports that will be shut down. You can edit the commands before committing."><span class="zoom">Click to enlarge</span></div>
-        <figcaption><b>Before.</b> Only the delta is sent, and the pre-flight warns about ports being shut down.</figcaption>
-      </figure>
-      <figure class="reveal">
-        <div class="frame"><img src="assets/img/commit-report.webp?v=0.7.0" width="640" height="680" loading="lazy"
-          alt="Change deployed and verified on 10.0.99.11 with ticket CHG0042: the pre-checks, 3 commands with a backup first and a reload-in-10 safety net, and every post-check passed, from still reachable to spanning-tree root unchanged."
-          data-cap="After: the deployment record, ready for the change ticket."><span class="zoom">Click to enlarge</span></div>
-        <figcaption><b>After.</b> The record for the change ticket, exportable as HTML.</figcaption>
-      </figure>
-    </div>
-    <div class="phases reveal">
-      <div class="phase"><span class="k">Pre-flight</span><p>The switch is reachable, nothing cuts off management access, no debugger errors, and no STIG or golden-standard regressions.</p></div>
-      <div class="phase"><span class="k">Change</span><p>Approval covers exactly the commands you saw, and risky changes need the hostname typed. A backup and a recovery point come first, then a reload-in-10 safety net (or an NX-OS checkpoint), and commands go one at a time, stopping at the first one the switch refuses.</p></div>
-      <div class="phase"><span class="k">Post-check</span><p>Still reachable, every command accepted, and before/after compared: ports, err-disabled, CDP neighbors, MAC learning, the spanning-tree root, and OSPF, EIGRP and BGP neighbors.</p></div>
     </div>
   </section>
 
@@ -446,7 +477,7 @@ footer p{max-width:66ch}
   <section id="compliance">
     <div class="sec-head reveal">
       <span class="eyebrow">Comply</span>
-      <h2>STIG compliance you can fix, and prove</h2>
+      <h2>STIG compliance you can fix, and&nbsp;prove</h2>
       <p>Load the DISA STIG and every rule is checked against the config, with the lines that prove the result. Built for STIG and RMF workflows.</p>
     </div>
 
@@ -455,19 +486,20 @@ footer p{max-width:66ch}
         <div>
           <div class="tags"><span class="tag e">CAT I</span><span class="tag w">CAT II</span><span class="tag i">CAT III</span><span class="tag g">NOT A FINDING</span></div>
           <h3>DISA STIGs, rule by rule</h3>
-          <p>Load the DISA zip, an XCCDF file or a STIG Viewer checklist. Shown here: the Cisco IOS XE Switch L2S STIG, V3R2.</p>
+          <p>Load the DISA zip, an XCCDF file or a STIG Viewer checklist. Shown here: the Cisco IOS XE Switch L2S STIG, V3R2, checking the config generated for ACCESS-SW01.</p>
         </div>
         <ul class="ticks">
-          <li><b>Evidence written to the checklist</b>: the config lines behind every result, secrets masked</li>
-          <li><b>One-click fixes</b> for a rule, or <b>Fix all open findings</b> at once, with Undo</li>
-          <li><b>Your review</b>: status, comments, finding details and severity overrides</li>
-          <li><b>Export</b> a <code>.cklb</code> for STIG Viewer 3 and eMASS, or a <code>.ckl</code></li>
+          <li><b>Evidence written to the checklist</b>: the config lines behind every result</li>
+          <li><b><span class="nw">One-click</span> fixes</b> for a rule, or <b>Fix all open</b> findings at once</li>
+          <li><b>Filter</b> by result and severity, or search rule IDs, titles and CCIs</li>
+          <li><b>Export</b> a <code>.cklb</code> for STIG Viewer 3 and eMASS, a <code>.ckl</code>, or a POA&amp;M draft</li>
         </ul>
       </div>
       <figure class="reveal">
-        <div class="frame"><img src="assets/img/stig.webp?v=0.7.0" width="1368" height="912" loading="lazy"
-          alt="The Compliance page's STIG tab with the Cisco IOS XE Switch L2S STIG V3R2 checking ACCESS-SW01: CAT I open 1, CAT II open 7, CAT III open 2, not a finding 10, needs manual review 1. Rule CISC-L2-000020 (V-220649, 802.1X) is open because 802.1X/MAB isn't configured; the evidence shows the interface lines, and the fix is Turn on 802.1X with MAB fallback. Export .cklb, POA&amp;M, Fix all open and Check fleet buttons sit at the top."
-          data-cap="The STIG tab: open findings by category, rule V-220649 open with the config lines behind it, and its fix."><span class="zoom">Click to enlarge</span></div>
+        <div class="frame"><img src="assets/img/stig.webp?v=0.7.0-2" srcset="assets/img/stig.webp?v=0.7.0-2 1x, assets/img/stig@2x.webp?v=0.7.0-2 2x" data-full="assets/img/stig@2x.webp?v=0.7.0-2"
+          width="1368" height="912" loading="lazy"
+          alt="The Compliance page's STIG tab, checking the configuration generated for ACCESS-SW01 against the Cisco IOS XE Switch L2S STIG V3R2: open CAT I 1, open CAT II 10, open CAT III 1, not a finding 8 and needs manual review 0, with 12 open of 22 checks. Rule CISC-L2-000020 (V-220649, 802.1X) is selected and open because 802.1X/MAB isn't configured, found by a built-in check. The evidence shows the interface range Gi1/0/1 - 36 lines, and the fix is Turn on 802.1X with MAB fallback. Export .cklb, POA&amp;M, Fix all open and Check fleet buttons sit at the top."
+          data-cap="The STIG tab for ACCESS-SW01: 12 open findings by category, rule V-220649 open with the config lines behind it, and its fix."></div>
         <figcaption>Rule V-220649 is open, with the evidence that goes into the checklist and its fix.</figcaption>
       </figure>
     </div>
@@ -483,23 +515,58 @@ footer p{max-width:66ch}
         </ul>
       </div>
       <figure class="reveal">
-        <div class="frame light"><img src="assets/img/report-stig.webp?v=0.7.0" width="820" height="900" loading="lazy"
-          alt="An HTML STIG report for ACCESS-SW01 with a CUI banner, a summary table (1 CAT I, 10 CAT II and 1 CAT III open, 8 not a finding, 40% compliance) and the open findings with their CCIs and configuration evidence."
-          data-cap="The STIG report for ACCESS-SW01: banner, summary with the compliance score, and each open finding with its evidence."><span class="zoom">Click to enlarge</span></div>
+        <div class="frame doc"><div class="bar" aria-hidden="true"><i></i><i></i><i></i><span>ACCESS-SW01 STIG report · HTML</span></div><img src="assets/img/report-stig.webp?v=0.7.0-2" srcset="assets/img/report-stig.webp?v=0.7.0-2 1x, assets/img/report-stig@2x.webp?v=0.7.0-2 2x" data-full="assets/img/report-stig@2x.webp?v=0.7.0-2"
+          width="820" height="900" loading="lazy"
+          alt="An HTML STIG report for ACCESS-SW01 with a CUI banner, a summary table for the L2S STIG (1 CAT I, 10 CAT II and 1 CAT III open, 8 not a finding, 2 not applicable, 0 not reviewed, 40% compliance) and the first of 12 open findings, V-220649, with its CCIs and the configuration lines behind it."
+          data-cap="The STIG report for ACCESS-SW01: banner, summary with the compliance score, and each open finding with its evidence."></div>
       </figure>
     </div>
 
     <div class="also">
-      <div class="also-h reveal">Also in Comply</div>
+      <h3 class="also-h reveal">Also in Comply</h3>
       <div class="cards reveal">
+        <div class="card"><h4>Your review</h4><p>Set the status, comments, finding details and a severity override on any rule.</p></div>
+        <div class="card"><h4>Results that hold up</h4><p>Only a built-in check can mark a rule Not a Finding. Anything it can't decide is left for you to review.</p></div>
+        <div class="card"><h4>Bring your checklist</h4><p>Load a STIG Viewer checklist and its statuses and comments come with it.</p></div>
         <div class="card"><h4>Checklists that open cleanly</h4><p>Every .ckl and .cklb is checked before it's saved, and tested against STIG Manager's own reader.</p></div>
-        <div class="card"><h4>NIST 800-53 mapping</h4><p>Import DISA's CCI list and every rule shows its 800-53 controls, in the app and in reports.</p></div>
+        <div class="card"><h4>NIST <span class="nw">800-53</span> mapping</h4><p>Import DISA's CCI list and every rule shows its <span class="nw">800-53</span> controls, in the app and in reports.</p></div>
         <div class="card"><h4>POA&amp;M draft</h4><p>One item per open finding, in the eMASS spreadsheet layout.</p></div>
-        <div class="card"><h4>Fleet-wide runs</h4><p>Check every switch's newest backup at once, then save a report or checklist per switch.</p></div>
+        <div class="card"><h4>Fleet-wide runs</h4><p>Check every switch's newest backup at once, then save one fleet report, one POA&amp;M, or a checklist per switch.</p></div>
         <div class="card"><h4>Policy packs</h4><p>Your own golden standards with required and forbidden lines, scoped by device role.</p></div>
         <div class="card"><h4>STIG release compare</h4><p>See which rules a new STIG release adds, removes or changes before you switch to it.</p></div>
       </div>
     </div>
+  </section>
+
+  <!-- ===================== DEPLOY ===================== -->
+  <section id="deploy">
+    <div class="sec-head reveal">
+      <span class="eyebrow">Deploy</span>
+      <h2>Every commit has a way&nbsp;back</h2>
+      <p>Safe Commit sends only the lines that changed. Every commit, from the editor, a drift fix, Bulk or the MAC finder, goes through the same approval, recovery point and <span class="nw">command-by-command</span> checks. A backup and a before/after check are on by default, except for quick port fixes from the MAC finder.</p>
+    </div>
+    <div class="duo">
+      <figure class="reveal">
+        <div class="frame"><img src="assets/img/commit.webp?v=0.7.0-3" srcset="assets/img/commit.webp?v=0.7.0-3 1x, assets/img/commit@2x.webp?v=0.7.0-3 2x" data-full="assets/img/commit@2x.webp?v=0.7.0-3"
+          width="780" height="840" loading="lazy"
+          alt="54 changes to commit to ACCESS-SW01 (10.0.99.11), saying only these commands will be sent, one at a time, after a copy of the running-config is saved to flash. Pre-flight: switch reachable, a warning under Management access kept that Gi1/0/45-48 and Te1/1/3-8 will be shut down so make sure none is the uplink, then configuration syntax, no STIG regressions, best practices and golden standards passed. Below are the 10 command lines that will be sent in 3 interface blocks, the change ticket CHG0042, and options to back up first, schedule a reload in 10 as a safety net, check the switch before and after, and save to startup-config."
+          data-cap="Before: only the changed lines, with the pre-flight checks. A warning flags the ports that will be shut down. You can edit the commands before committing."></div>
+        <figcaption><b>Before.</b> 54 port changes go out as 10 lines in 3 interface ranges, and the pre-flight warns about the ports being shut down.</figcaption>
+      </figure>
+      <figure class="reveal">
+        <div class="frame"><img src="assets/img/commit-report.webp?v=0.7.0-3" srcset="assets/img/commit-report.webp?v=0.7.0-3 1x, assets/img/commit-report@2x.webp?v=0.7.0-3 2x" data-full="assets/img/commit-report@2x.webp?v=0.7.0-3"
+          width="640" height="740" loading="lazy"
+          alt="Change deployed and verified on 10.0.99.11 with ticket CHG0042, for a C9300-48P on 17.9.3, with its serial and plan hash. The pre-checks from before the commit are followed by three more that passed: approved for exactly these commands, same switch, and switch unchanged since it was read. The change had a backup first, a reload-in-10 safety net and a recovery point on flash, and the switch accepted all 10 lines. Every post-check passed, from still reachable to spanning-tree root unchanged, with an Export report button."
+          data-cap="After: the deployment record for CHG0042, with the approval, the same-switch check, every line accepted and every post-check passed."></div>
+        <figcaption><b>After.</b> The record for change CHG0042: approved, the same switch, every line accepted and every post-check passed. Exportable as HTML.</figcaption>
+      </figure>
+    </div>
+    <div class="phases reveal">
+      <div class="phase"><span class="k">Pre-flight</span><p>The switch is reachable, and any command that could cut off management access is flagged. For changes from the editor, the commit stops if the switch isn't the one you read or has changed since, and debugger errors and STIG or <span class="nw">golden-standard</span> regressions are flagged before you approve.</p></div>
+      <div class="phase"><span class="k">Change</span><p>You approve the exact commands, and risky ones need the hostname typed. A backup and a recovery point (a flash copy, or a checkpoint on <span class="nw">NX-OS</span>) come first, then on IOS and IOS&nbsp;XE a <span class="nw">reload-in-10</span> safety net. Commands go one at a time and stop at the first one the switch refuses.</p></div>
+      <div class="phase"><span class="k">Post-check</span><p>Still reachable, every command accepted, and before/after compared: ports, <span class="nw">err-disabled</span>, CDP neighbors, MAC learning, the <span class="nw">spanning-tree</span> root, and OSPF, EIGRP and BGP neighbors. A failed check offers a rollback, confirmed by reading the config back.</p></div>
+    </div>
+    <p class="note reveal">These safeguards are tested against a simulated switch so far. Try them on a lab switch first, and tell us how it went.</p>
   </section>
 
   <!-- ===================== FLEET ===================== -->
@@ -507,7 +574,7 @@ footer p{max-width:66ch}
     <div class="sec-head reveal">
       <span class="eyebrow">Verify</span>
       <h2>The whole fleet, without logging in to each switch</h2>
-      <p>State, history and drift, worked out from scheduled backups.</p>
+      <p>State, history and drift, worked out from the newest backups.</p>
     </div>
 
     <div class="feature wide">
@@ -518,52 +585,53 @@ footer p{max-width:66ch}
         </div>
         <ul class="ticks">
           <li><b>Reachable switches, STIG compliance, open CAT I findings, drift and backups</b> across the top</li>
-          <li><b>The switches that need attention</b>, worst first, with the reason on each row</li>
+          <li><b>The switches that need attention</b>, most urgent first, with the reason on each row</li>
           <li><b>Findings by severity</b>, recent activity from the change log, and your recent projects</li>
         </ul>
       </div>
       <figure class="reveal">
-        <div class="frame"><img src="assets/img/home.webp?v=0.7.0" width="1368" height="912" loading="lazy"
-          alt="The Home page: 9 of 10 switches reachable with ACCESS-SW05 unreachable, 83% STIG compliance with 6 of 10 switches compliant, 2 open CAT I findings on 2 switches, 1 switch changed since known-good, and 10 backups in the last 24 hours with 1 failed. Needs attention lists ACCESS-SW05 (backup failed), ACCESS-SW01 and ACCESS-SW04 (open STIG rules) and DIST-SW02 (drifted). On the right, compliance by severity and recent projects; below, recent activity."
-          data-cap="Home: 10 switches at a glance, and the 4 that need attention, each with the reason."><span class="zoom">Click to enlarge</span></div>
+        <div class="frame"><img src="assets/img/home.webp?v=0.7.0-2" srcset="assets/img/home.webp?v=0.7.0-2 1x, assets/img/home@2x.webp?v=0.7.0-2 2x" data-full="assets/img/home@2x.webp?v=0.7.0-2"
+          width="1368" height="912" loading="lazy"
+          alt="The Home page for 10 switches, with backups scheduled every 24 hours. Across the top: 9 of 10 switches reachable with 1 unreachable, 82% STIG compliance with 6 of 10 switches compliant, 2 open CAT I findings on 2 switches, 1 switch changed since known-good, 9 of 10 backups in the last 24 hours with 1 failed (no reply on port 22), and 4 errors and high findings in this project. Needs attention lists ACCESS-SW05 (backup failed), ACCESS-SW01 (12 open STIG rules, 1 CAT I), ACCESS-SW04 (14 open STIG rules, 1 CAT I) and DIST-SW02 (drifted, 4 changes). On the right, compliance by severity and the recent project ACCESS-SW01; below, recent activity from the change log."
+          data-cap="Home: 10 switches at a glance, and the 4 that need attention, each with the reason."></div>
       </figure>
     </div>
 
     <div class="feature wide">
       <div class="copy wide-head reveal">
         <div>
-          <h3>Fleet board</h3>
-          <p>Every switch at a glance, checked from its newest backup without connecting.</p>
+          <h3>Topology from CDP and LLDP</h3>
+          <p>Discover the network from your connected switches and get it drawn in layers. <span class="nw">Double-click</span> a device for SSH, its config or its port map.</p>
         </div>
         <ul class="ticks">
-          <li><b>Compliant, drifted, non-compliant or unreachable</b>, counted at the top</li>
-          <li><b>The reason on every row</b>: a failed backup, open STIG rules, or what drifted</li>
-          <li><b>Refresh</b> checks the connected switches live</li>
+          <li><b>Core, distribution and access</b> layers, laid out automatically</li>
+          <li><b>Links colored</b> by trunk or routed, and labelled with the port on each end where there's room</li>
+          <li><b>Endpoints</b> like phones and access points tucked under their switch behind a badge, and switches that couldn't be read outlined in red</li>
         </ul>
       </div>
       <figure class="reveal">
-        <div class="frame"><img src="assets/img/fleet.webp?v=0.7.0" width="1368" height="912" loading="lazy"
-          alt="The Fleet board: 10 switches, 6 compliant, 1 drifted, 2 non-compliant and 1 unreachable, checked against 1 STIG and 1 policy pack. Each switch is listed with its model, IOS release, reachability, STIG score, drift, last backup and the reason, from Backup failed: No reply on port 22 to No open findings and no drift."
-          data-cap="Fleet board: 10 switches, each with its state and the reason for it."><span class="zoom">Click to enlarge</span></div>
+        <div class="frame"><img src="assets/img/topology.webp?v=0.7.0-2" srcset="assets/img/topology.webp?v=0.7.0-2 1x, assets/img/topology@2x.webp?v=0.7.0-2 2x" data-full="assets/img/topology@2x.webp?v=0.7.0-2"
+          width="1545" height="610" loading="lazy"
+          alt="The Topology map: CORE-SW01, WAN-RTR01 and CORE-SW02 in the core layer, DIST-SW01 and DIST-SW02 in distribution, and five access switches below, linked by blue trunk lines and purple routed lines, most labelled with the port names on each end. ACCESS-SW05 has a dashed red border and says couldn't read, and ACCESS-SW01 and ACCESS-SW02 carry 2 endpoints and 1 endpoint badges."
+          data-cap="Topology: core, distribution and access layers, with trunks in blue, routed links in purple, and a switch that couldn't be read outlined in red."></div>
       </figure>
     </div>
 
-    <div class="feature wide">
-      <div class="copy wide-head reveal">
-        <div>
-          <h3>What changed?</h3>
-          <p>The changes since a switch's last known-good backup, in plain language, with security-related changes first.</p>
-        </div>
+    <div class="feature flip">
+      <div class="copy reveal">
+        <h3>What changed?</h3>
+        <p>The changes since a switch's last known-good backup, in plain language, with security-related changes first.</p>
         <ul class="ticks">
-          <li><b>Known-good backups</b> marked with a star, saved after a Safe Commit that passed or marked by hand</li>
-          <li><b>Security changes first</b>, like an SNMP community added, with the community itself masked</li>
-          <li><b>Grouped</b> into VLANs and management settings, then the line-by-line diff</li>
+          <li><b>Compared with the known-good backup</b>: one saved after a Safe Commit that passed, or marked by hand</li>
+          <li><b>Security changes first</b>, like an SNMP community added, with the community string hidden</li>
+          <li><b>Grouped</b> into VLANs and management settings, then the <span class="nw">line-by-line</span> diff</li>
         </ul>
       </div>
       <figure class="reveal">
-        <div class="frame"><img src="assets/img/whatchanged.webp?v=0.7.0" width="1368" height="912" loading="lazy"
-          alt="The Backups page for DIST-SW02: a scheduled backup from 2026-10-13 and a known-good backup from 2026-10-06. What changed lists 4 changes, 1 touching security: an SNMP community was added (its value masked), VLAN 77 TEMP-VENDOR was added, and an NTP server was replaced. Below that is the line-by-line diff with added lines in green and removed lines in red."
-          data-cap="What changed on DIST-SW02 since its known-good backup: security first, then grouped changes and the line-by-line diff."><span class="zoom">Click to enlarge</span></div>
+        <div class="frame"><img src="assets/img/whatchanged.webp?v=0.7.0-2" srcset="assets/img/whatchanged.webp?v=0.7.0-2 1x, assets/img/whatchanged@2x.webp?v=0.7.0-2 2x" data-full="assets/img/whatchanged@2x.webp?v=0.7.0-2"
+          width="832" height="824" loading="lazy"
+          alt="What changed on DIST-SW02, from its known-good backup of 2026-10-06 14:12 to its newest backup of 2026-10-13 11:11: 4 changes, 1 touching security. Security-related comes first: an SNMP community was added, its string hidden. Then VLAN 77 TEMP-VENDOR was added, and an NTP server was removed and another added, followed by the line-by-line diff with 4 lines added in green and 1 removed in red."
+          data-cap="What changed on DIST-SW02 since its known-good backup: the security change first, then grouped changes and the line-by-line diff."></div>
       </figure>
     </div>
 
@@ -576,39 +644,25 @@ footer p{max-width:66ch}
         <ul class="ticks">
           <li><b>Advisories that apply</b>, including whether the config turns on the affected feature</li>
           <li><b>End of sale and support</b> flagged per switch</li>
-          <li><b>Works offline</b> from bundled data, with an optional online check using your own Cisco API key</li>
+          <li><b>Works offline</b> from a bundled starter set. Import a newer data file, or turn on the online check with your own Cisco API key.</li>
         </ul>
       </div>
       <figure class="reveal">
-        <div class="frame"><img src="assets/img/versions.webp?v=0.7.0" width="1368" height="912" loading="lazy"
-          alt="The Versions page: 10 switches, 6 with advisories, 3 at end of sale or support. ACCESS-SW01 on IOS XE 17.9.3 is marked Affected by the critical web UI advisory because its config turns on the web UI, and its release is past support."
-          data-cap="Versions: ACCESS-SW01 is affected by the web UI advisory because its config turns on ip http server."><span class="zoom">Click to enlarge</span></div>
-      </figure>
-    </div>
-
-    <div class="feature wide">
-      <div class="copy wide-head reveal">
-        <div>
-          <h3>Topology from CDP and LLDP</h3>
-          <p>Discover the network from your connected switches and get it drawn in layers. Double-click a device for SSH, its config or its port map.</p>
-        </div>
-        <ul class="ticks">
-          <li><b>Core, distribution and access</b> layers, laid out automatically</li>
-          <li><b>Links colored</b> by trunk or routed, with the port on each end</li>
-          <li><b>Phones, access points and hosts</b> tucked under their switch, and switches that couldn't be read outlined in red</li>
-        </ul>
-      </div>
-      <figure class="reveal">
-        <div class="frame"><img src="assets/img/topology.webp?v=0.7.0" width="1545" height="610" loading="lazy"
-          alt="The Topology map: CORE-SW01, CORE-SW02 and WAN-RTR01 in the core layer, DIST-SW01 and DIST-SW02 in distribution, and five access switches below, linked by blue trunk lines and purple routed lines labelled with port names. ACCESS-SW05 has a dashed red border because it couldn't be read, and ACCESS-SW01 and ACCESS-SW02 carry endpoint badges."
-          data-cap="Topology: core, distribution and access layers, with trunks in blue, routed links in purple, and a switch that couldn't be read outlined in red."><span class="zoom">Click to enlarge</span></div>
+        <div class="frame"><img src="assets/img/versions.webp?v=0.7.0-2" srcset="assets/img/versions.webp?v=0.7.0-2 1x, assets/img/versions@2x.webp?v=0.7.0-2 2x" data-full="assets/img/versions@2x.webp?v=0.7.0-2"
+          width="1368" height="912" loading="lazy"
+          alt="The Versions page: 10 switches, 6 with advisories (1 affected by a critical or high one), 3 at end of sale or support, and every release known exactly. ACCESS-SW01 on IOS XE 17.9.3 is selected: it is marked Affected by the critical IOS XE web UI advisory because its config turns on the web UI, and its release is past support. A note at the bottom says the bundled data is a starter set, with Import data file and Online check links."
+          data-cap="Versions: ACCESS-SW01 is affected by the web UI advisory because its config turns on the web UI."></div>
       </figure>
     </div>
 
     <div class="also">
-      <div class="also-h reveal">Also in Verify</div>
+      <h3 class="also-h reveal">Also in Verify</h3>
       <div class="cards four reveal">
-        <div class="card"><h4>Scheduled backups</h4><p>Hourly to weekly, with an alert on drift that turns red when security settings change.</p></div>
+        <div class="card"><h4>Fleet board</h4><p>Every switch from its newest backup: compliant, drifted, <span class="nw">non-compliant</span> or unreachable, with the reason on each row.</p></div>
+        <div class="card"><h4>Live dashboard</h4><p>Ports, MACs, CDP and OSPF, EIGRP and BGP neighbors in plain English, on Catalyst and Nexus, plus Look up route.</p></div>
+        <div class="card"><h4>IP plan</h4><p>A subnet tree filled in from your switches, with duplicate IP checks and Excel import and export.</p></div>
+        <div class="card"><h4>Scheduled backups</h4><p>Hourly to weekly while SwitchForge is open, with an alert on drift that turns red when security settings change.</p></div>
+        <div class="card"><h4>Backup history</h4><p>Each switch's configs with their model, serial and software, diffs against the switch now, and restore by Commit.</p></div>
         <div class="card"><h4>Search every backup</h4><p>Find which switches have, or are missing, any config line.</p></div>
         <div class="card"><h4>Find a MAC or IP</h4><p>Trace a device to the switch port it's plugged into, then configure that port.</p></div>
         <div class="card"><h4>Topology overlays</h4><p>Color the map by STIG results or drift, and compare two discovery snapshots.</p></div>
@@ -620,8 +674,8 @@ footer p{max-width:66ch}
   <section id="security">
     <div class="sec-head reveal">
       <span class="eyebrow">Built for secure environments</span>
-      <h2>Runs on one Windows PC. No cloud, no account.</h2>
-      <p>Projects, backups and settings stay in your Windows profile, encrypted for your account. Nothing is sent anywhere.</p>
+      <h2>Runs on one Windows&nbsp;PC. No cloud, no&nbsp;sign-up.</h2>
+      <p>Backups, project files and saved passwords are encrypted for your Windows account. It connects only to the switches you name and the CDP and LLDP neighbors that topology discovery finds, plus Cisco's advisory service if you turn it on.</p>
     </div>
     <div class="cards reveal">
       <div class="card">
@@ -632,17 +686,17 @@ footer p{max-width:66ch}
       <div class="card">
         <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12h3m14 0h3M5 12a7 7 0 0 1 14 0"/><path d="m3 3 18 18"/></svg></div>
         <h3>Air-gap ready</h3>
-        <p>Licenses are checked on the PC, so the app works on networks with no internet at all. No telemetry.</p>
+        <p>Licenses are checked on the PC, so the app works on networks with no internet at all. No telemetry and no update checks.</p>
       </div>
       <div class="card">
         <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6M8 13h8M8 17h5"/></svg></div>
         <h3>SBOM and checksums</h3>
-        <p>Every release ships a CycloneDX software bill of materials listing exactly what the exe contains, and SHA-256 checksums.</p>
+        <p>Every release ships a CycloneDX software bill of materials listing exactly what the exe contains, and <span class="nw">SHA-256</span> checksums.</p>
       </div>
       <div class="card">
         <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg></div>
-        <h3>Admin and read-only profiles</h3>
-        <p>Auditors and IT viewers get a read-only profile that can look at everything but can't change configs or switches.</p>
+        <h3>Admin and <span class="nw">read-only</span> profiles</h3>
+        <p>Auditors and IT viewers get a <span class="nw">read-only</span> profile that SwitchForge won't let edit configs, apply fixes, commit or push. What anyone can type on a switch is still up to its own AAA.</p>
       </div>
       <div class="card">
         <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 8v4l3 2"/><circle cx="12" cy="12" r="9"/></svg></div>
@@ -651,8 +705,8 @@ footer p{max-width:66ch}
       </div>
       <div class="card">
         <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="10" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div>
-        <h3>Encrypted at rest</h3>
-        <p>Backups and project files are encrypted for your Windows user. Local accounts use type 9 or type 8 hashes, and secrets are masked in evidence, records and the change log.</p>
+        <h3>Encryption and secrets</h3>
+        <p>Backups and project files are encrypted for your Windows user. New local accounts and the enable secret are hashed as type 9 (type 8 in FIPS mode), and secrets are masked in evidence, records and the change log.</p>
       </div>
     </div>
 
@@ -661,12 +715,12 @@ footer p{max-width:66ch}
       <h2 style="font-size:clamp(24px,2.8vw,32px)">Catalyst, Nexus and ISR</h2>
     </div>
     <div class="models reveal">
-      <div class="model"><h4>Catalyst IOS XE</h4><ul><li>9300</li><li>9200 / 9200L</li><li>9500</li></ul></div>
-      <div class="model"><h4>Classic IOS</h4><ul><li>2960-X</li></ul></div>
-      <div class="model"><h4>Nexus NX-OS</h4><ul><li>93180YC-FX</li><li>9348GC-FX3PH</li></ul></div>
-      <div class="model"><h4>Routers</h4><ul><li>ISR 4331, 4431, 1111-8P</li><li>Catalyst 8200</li><li>Cisco 2911</li></ul></div>
+      <div class="model"><h3>Catalyst IOS XE</h3><ul><li>9300</li><li>9200 / 9200L</li><li>9500</li></ul></div>
+      <div class="model"><h3>Classic IOS</h3><ul><li>2960-X</li></ul></div>
+      <div class="model"><h3>Nexus <span class="nw">NX-OS</span></h3><ul><li>93180YC-FX</li><li>9348GC-FX3PH</li></ul></div>
+      <div class="model"><h3>Routers</h3><ul><li>ISR 4331, 4431, 1111-8P</li><li>Catalyst 8200</li><li>Cisco 2911</li></ul></div>
     </div>
-    <p class="note reveal">Connects over SSH, a console cable, SCP or the built-in TFTP server.</p>
+    <p class="note reveal">Connects over SSH, a console cable, SCP or the <span class="nw">built-in</span> TFTP server. On Nexus, the routing, ACL, QoS, AAA, gateway and monitoring builders are off, so those settings stay as CLI text, kept as written.</p>
   </section>
 
   <!-- ===================== DOWNLOAD ===================== -->
@@ -677,33 +731,34 @@ footer p{max-width:66ch}
         <h2>Get the latest test build</h2>
         <p class="ver" id="dl-ver">Windows 10 or 11, 64-bit. Nothing else to install.</p>
       </div>
-      <a class="btn ghost" id="all-releases" href="#">
+      <a class="btn ghost" id="all-releases" href="https://github.com/TomaDev1/test-builds/releases/latest">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6M8 13h8M8 17h5"/></svg>
         Release notes
       </a>
     </div>
+    <!-- Without scripts (or if GitHub's API is busy) each card opens the newest release's page; the script swaps in direct links. -->
     <div class="files">
-      <a class="file main" data-match="-setup.exe" href="#">
+      <a class="file main" data-match="-setup.exe" href="https://github.com/TomaDev1/test-builds/releases/latest">
         <span class="fi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0-5-5m5 5 5-5M4 19h16"/></svg></span>
-        <div><b>Installer</b><span class="fname">Start here if you're not sure</span></div>
+        <div><b>Installer <span class="chip">Recommended</span></b><span class="fname">Start here if you're not sure</span></div>
       </a>
-      <a class="file" data-match="-win-x64.exe" href="#">
+      <a class="file" data-match="-win-x64.exe" href="https://github.com/TomaDev1/test-builds/releases/latest">
         <span class="fi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18"/></svg></span>
         <div><b>Portable exe</b><span class="fname">The same app as one file, nothing to install</span></div>
       </a>
-      <a class="file" data-match="sbom" href="#">
+      <a class="file" data-match="sbom" href="https://github.com/TomaDev1/test-builds/releases/latest">
         <span class="fi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6"/></svg></span>
         <div><b>SBOM</b><span class="fname">CycloneDX bill of materials</span></div>
       </a>
-      <a class="file" data-match="SHA256SUMS" href="#">
+      <a class="file" data-match="SHA256SUMS" href="https://github.com/TomaDev1/test-builds/releases/latest/download/SHA256SUMS.txt">
         <span class="fi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9h16M4 15h16M10 3 8 21M16 3l-2 18"/></svg></span>
-        <div><b>Checksums</b><span class="fname">SHA-256 of every file</span></div>
+        <div><b>Checksums</b><span class="fname"><span class="nw">SHA-256</span> of every file</span></div>
       </a>
     </div>
     <div class="steps">
-      <div><b><i>1</i>Check the download</b>Optional: run <code>Get-FileHash</code> in PowerShell and compare it with <code>SHA256SUMS.txt</code>.</div>
-      <div><b><i>2</i>Get past SmartScreen</b>Test builds aren't code-signed yet. If Windows warns you, click More info, then Run anyway.</div>
-      <div><b><i>3</i>Load your license</b>Open the <code>.sflic</code> file from your invitation on the first screen. Without one the app opens read-only.</div>
+      <div><b><i>1</i>Check the file</b>Test builds aren't code-signed yet, so check that the file arrived intact: run <code>Get-FileHash</code> on the download in PowerShell and find the same value in <code>SHA256SUMS.txt</code>.</div>
+      <div><b><i>2</i>If SmartScreen warns you</b>Windows says it protected your PC. Click More info, then Run anyway. If your PC only runs signed apps, ask your admin.</div>
+      <div><b><i>3</i>Load your license</b>On the first screen, open the <code>.sflic</code> file from your invitation. Then accept the tester agreement and set an admin password, which stays on this PC. Without a license the app opens <span class="nw">read-only</span>.</div>
     </div>
   </div>
 
@@ -720,23 +775,31 @@ footer p{max-width:66ch}
       </details>
       <details>
         <summary>Which STIGs does it check?</summary>
-        <p>The Cisco IOS XE switch STIGs (L2S and NDM), the router STIG, and NX-OS. Load the STIG from DISA's download, an XCCDF file or a STIG Viewer checklist. Rules it can't check automatically are left for you to review, and a checklist you load brings its existing statuses and comments with it.</p>
+        <p>The Cisco IOS and IOS XE switch STIGs (L2S and NDM) and the router STIG are checked rule by rule. <span class="nw">NX-OS</span> STIGs are checked too, but more of their rules are left for you to review, and those checks are less tested so far. Load the STIG from DISA's download, an XCCDF file or a STIG Viewer checklist.</p>
       </details>
       <details>
         <summary>Does it need internet access?</summary>
-        <p>No. The license is checked on the PC, and the IOS end-of-life data is bundled. The only outside connection is the optional Cisco advisory lookup on the Versions page, which you turn on with your own Cisco API key.</p>
+        <p>No. The license is checked on the PC, and a starter set of Cisco advisory and end-of-life data is bundled; you can import a newer data file. The only outside connection is the optional online advisory check on the Versions page, which uses your own Cisco API key.</p>
+      </details>
+      <details>
+        <summary>Is it FIPS 140 validated?</summary>
+        <p>No. SwitchForge isn't a validated module and hasn't been through CMVP testing. In FIPS mode it uses only FIPS-approved algorithms: its own encryption goes through Windows CNG, the module covered by Microsoft's FIPS 140 validations, and SSH is limited to approved algorithms, although the SSH library in these test builds isn't itself a validated module.</p>
+      </details>
+      <details>
+        <summary>Is it code-signed?</summary>
+        <p>Not yet; signing is being set up. Until then SmartScreen will warn you, and a PC that only runs signed apps may block it. Check the file against <code>SHA256SUMS.txt</code> from the same release.</p>
       </details>
       <details>
         <summary>Where is my data kept?</summary>
-        <p>In your Windows profile, under <code>%AppData%\SwitchForge</code>: projects, backups, settings and the changelog. Backups, projects and remembered session passwords are encrypted with Windows DPAPI, so only your Windows account can open them. To move a project to another PC, use File &gt; Save portable copy. Nothing is uploaded.</p>
+        <p>Backups, settings and the changelog are kept in your Windows profile, under <code>%AppData%\SwitchForge</code>. Projects are saved wherever you choose. Backups, project files and remembered session passwords are encrypted with Windows DPAPI, so only your Windows account can open them. To move a project to another PC, use File &gt; Save portable copy. Nothing is uploaded.</p>
       </details>
       <details>
         <summary>What does read-only mean?</summary>
-        <p>Without a valid license, or on a read-only profile, you can open projects and look around, but you can't change configs or push to switches. When a tester license runs out, your projects and backups stay where they are.</p>
+        <p>Without a valid license, or on a <span class="nw">read-only</span> profile, you can open projects and look around, but SwitchForge won't let you change configs or push to switches. A tester license lasts 30 days, and when it runs out your projects and backups stay where they are.</p>
       </details>
       <details>
         <summary>How do I report a problem?</summary>
-        <p>Through the contact you received your invitation from. Include the version number (shown on the sign-in screen) and what you were doing.</p>
+        <p>Through the contact you received your invitation from. Include the version number (in the main window's title bar, like SwitchForge 0.7.0) and what you were doing.</p>
       </details>
     </div>
   </section>
@@ -744,43 +807,95 @@ footer p{max-width:66ch}
 
 <footer>
   <div class="wrap">
-    <a class="brand" href="#top"><img src="assets/favicon.svg" alt=""><span class="app-name">SwitchForge</span></a>
+    <div>
+      <a class="brand" href="#top"><img src="assets/favicon.svg" alt=""><span class="app-name">SwitchForge</span></a>
+      <nav class="foot-links" aria-label="Footer">
+        <a href="#download">Download</a>
+        <a id="foot-notes" href="https://github.com/TomaDev1/test-builds/releases/latest">Release notes</a>
+        <a href="#top">Back to top</a>
+      </nav>
+    </div>
     <p>Tester preview. Screenshots show sample data. STIG checks follow DISA's published STIGs; verify against the current STIG for your platform. Cisco, Catalyst, Nexus and IOS are trademarks of Cisco Systems, Inc. This product is not affiliated with or endorsed by Cisco or DISA.</p>
   </div>
 </footer>
 
-<div id="lb" role="dialog" aria-modal="true" aria-label="Screenshot">
+<div id="lb" role="dialog" aria-modal="true" aria-label="Screenshot" aria-describedby="lb-cap">
   <button class="x" aria-label="Close">×</button>
   <button class="prev" aria-label="Previous screenshot">‹</button>
   <button class="next" aria-label="Next screenshot">›</button>
   <img alt="">
-  <p></p>
+  <p id="lb-cap"></p>
 </div>
 
 <script>
-document.documentElement.classList.add("js");
 document.querySelectorAll(".app-name").forEach(e => e.textContent = APP_NAME);
 document.title = document.title.replace("SwitchForge", APP_NAME);
 if (APP_NAME !== "SwitchForge")
-  document.querySelectorAll("main p, main code").forEach(e => { if (e.textContent.includes("SwitchForge")) e.textContent = e.textContent.replaceAll("SwitchForge", APP_NAME); });
+  document.querySelectorAll("main p, main h3, main h4, main code").forEach(e => { if (e.textContent.includes("SwitchForge")) e.textContent = e.textContent.replaceAll("SwitchForge", APP_NAME); });
 
-// Downloads: point each card at the newest release's file. If the lookup fails, they stay on the Releases page.
-const latestUrl = "https://github.com/" + RELEASES_REPO + "/releases/latest";
-document.getElementById("all-releases").href = latestUrl;
-document.querySelectorAll(".file").forEach(a => a.href = latestUrl);
+// Hyphenated words (read-only, built-in, end-of-life...) never split across two lines
+document.querySelectorAll(".lede, .proof, .flow p, main p, main li, main h3, main h4, main figcaption, .steps>div, footer p").forEach(el => {
+  const walk = document.createTreeWalker(el, NodeFilter.SHOW_TEXT, {acceptNode: n => n.parentElement.closest("code, .nw, .fname, summary") ? NodeFilter.FILTER_REJECT : NodeFilter.FILTER_ACCEPT});
+  const nodes = [];
+  while (walk.nextNode()) if (/\w-\w/.test(walk.currentNode.data)) nodes.push(walk.currentNode);
+  nodes.forEach(n => {
+    const frag = document.createDocumentFragment();
+    n.data.split(/(\S*\w-\w\S*)/).forEach((t, i) => {
+      if (!t) return;
+      if (i % 2) { const s = document.createElement("span"); s.className = "nw"; s.textContent = t; frag.append(s); }
+      else frag.append(t);
+    });
+    n.replaceWith(frag);
+  });
+});
+
+// Body text: the last word of a paragraph keeps a neighbor or two, so no line holds a single short word
+document.querySelectorAll(".sec-head p, .card p, .phase p, .feature .copy>p, .wide-head p, .ticks li, .faq p, .steps>div, figcaption, .note, .dl .ver, .file .fname").forEach(el => {
+  const walk = document.createTreeWalker(el, NodeFilter.SHOW_TEXT);
+  let n, last = null;
+  while ((n = walk.nextNode())) if (n.data.trim()) last = n;
+  if (!last) return;
+  const end = last.data.match(/\s*$/)[0], parts = last.data.slice(0, last.data.length - end.length).split(" ");
+  // Subtitles keep a longer last line than body text
+  const sub = el.matches(".sec-head p"), min = sub ? 18 : 12, most = sub ? 4 : 3;
+  let k = 2;
+  while (k < most && k < parts.length && parts.slice(-k).join(" ").length < min) k++;
+  if (parts.length < 2) return;
+  last.data = (k >= parts.length ? parts.join("\u00a0") : parts.slice(0, -k).join(" ") + " " + parts.slice(-k).join("\u00a0")) + end;
+});
+
+// A line of short phrases separated by dots, each kept on one line (a dot ends a line rather than starting one)
+function setParts(el, parts) {
+  el.textContent = "";
+  parts.forEach((p, i) => {
+    if (i) el.append("\u00a0· ");
+    const s = document.createElement("span");
+    s.className = "nw";
+    s.textContent = p;
+    el.append(s);
+  });
+}
+
+// Downloads: point each card at the newest release's file. If the lookup fails, they stay on the release page.
 fetch("https://api.github.com/repos/" + RELEASES_REPO + "/releases/latest", {headers: {Accept: "application/vnd.github+json"}})
   .then(r => r.ok ? r.json() : Promise.reject(r.status))
   .then(rel => {
     const ver = rel.tag_name.replace(/^v/, "");
     const date = new Date(rel.published_at).toLocaleDateString(undefined, {year: "numeric", month: "long", day: "numeric"});
-    document.getElementById("dl-ver").textContent = "Version " + ver + ", released " + date + ". Windows 10 or 11, 64-bit.";
-    document.getElementById("hero-meta").textContent = "Version " + ver + " · Test builds for invited testers · Works offline";
+    const dlVer = document.getElementById("dl-ver"), when = document.createElement("span");
+    when.className = "nw";
+    when.textContent = date;
+    dlVer.textContent = "Version " + ver + ", released ";
+    dlVer.append(when, ". Windows 10 or 11, 64-bit.");
+    setParts(document.getElementById("hero-meta"), ["Test builds for invited testers", "Version " + ver, "Works offline"]);
     document.getElementById("all-releases").href = rel.html_url;
+    document.getElementById("foot-notes").href = rel.html_url;
     document.querySelectorAll(".file").forEach(a => {
       const asset = rel.assets.find(x => x.name.includes(a.dataset.match));
       if (!asset) return;
       a.href = asset.browser_download_url;
-      const mb = asset.size > 1048576 ? " · " + Math.round(asset.size / 1048576) + " MB" : "";
+      // The size stays with the name's dot, so a dot never starts a line
+      const mb = asset.size > 1048576 ? "\u00a0· " + Math.round(asset.size / 1048576) + "\u00a0MB" : "";
       a.querySelector(".fname").textContent = asset.name + mb;
     });
   })
@@ -788,23 +903,29 @@ fetch("https://api.github.com/repos/" + RELEASES_REPO + "/releases/latest", {hea
 
 // Nav: border once scrolled, the section in view highlighted, and the phone menu
 const nav = document.getElementById("nav");
+const menuBtn = document.getElementById("menu-btn"), links = document.getElementById("links");
+const navLinks = [...links.querySelectorAll("a")];
 const firstSection = document.getElementById("build");
+const markActive = id => navLinks.forEach(a => {
+  const on = a.getAttribute("href") === "#" + id;
+  a.classList.toggle("active", on);
+  if (on) a.setAttribute("aria-current", "true"); else a.removeAttribute("aria-current");
+});
 const onScroll = () => {
   nav.classList.toggle("scrolled", scrollY > 8);
-  if (scrollY + innerHeight * 0.5 < firstSection.offsetTop) links.querySelectorAll("a.active").forEach(a => a.classList.remove("active"));
+  if (scrollY + innerHeight * 0.5 < firstSection.offsetTop) markActive(null);
 };
-const menuBtn = document.getElementById("menu-btn"), links = document.getElementById("links");
 addEventListener("scroll", onScroll, {passive: true});
 onScroll();
 const setMenu = open => { links.classList.toggle("open", open); menuBtn.setAttribute("aria-expanded", open); };
 menuBtn.addEventListener("click", () => setMenu(!links.classList.contains("open")));
-links.querySelectorAll("a").forEach(a => a.addEventListener("click", () => setMenu(false)));
+navLinks.forEach(a => a.addEventListener("click", () => setMenu(false)));
+document.addEventListener("click", e => { if (links.classList.contains("open") && !nav.contains(e.target)) setMenu(false); });
+addEventListener("keydown", e => { if (e.key === "Escape" && links.classList.contains("open")) { setMenu(false); menuBtn.focus(); } });
 
 if ("IntersectionObserver" in window) {
-  const navLinks = [...links.querySelectorAll("a")];
-  const spy = new IntersectionObserver(entries => entries.forEach(e => {
-    if (e.isIntersecting) navLinks.forEach(a => a.classList.toggle("active", a.getAttribute("href") === "#" + e.target.id));
-  }), {rootMargin: "-45% 0px -50% 0px"});
+  const spy = new IntersectionObserver(entries => entries.forEach(e => { if (e.isIntersecting) markActive(e.target.id); }),
+    {rootMargin: "-45% 0px -50% 0px"});
   document.querySelectorAll("main section[id]").forEach(s => spy.observe(s));
 
   const io = new IntersectionObserver(entries => entries.forEach(e => {
@@ -815,29 +936,68 @@ if ("IntersectionObserver" in window) {
   document.querySelectorAll(".reveal").forEach(el => el.classList.add("in"));
 }
 
-// Screenshots open full size, with their caption; arrows step through them
+// Screenshots open in a viewer with their caption, at double resolution. Arrows step through them;
+// clicking the image zooms in (drag or scroll to look around) and clicking again fits it back to the screen.
 const shots = [...document.querySelectorAll(".window img, .frame img")];
 const lb = document.getElementById("lb"), lbImg = lb.querySelector("img"), lbCap = lb.querySelector("p");
+const behind = [nav, document.querySelector("header.hero"), document.querySelector("main"), document.querySelector("footer")];
+const touch = matchMedia("(hover: none)").matches;
 let cur = 0, opener = null;
+function zoom(on, ev) {
+  if (on) {
+    const w = +shots[cur].getAttribute("width"), r = lbImg.getBoundingClientRect();
+    const fx = ev ? (ev.clientX - r.left) / r.width : .5, fy = ev ? (ev.clientY - r.top) / r.height : .5;
+    const zw = r.width >= w * .75 ? w * 2 : w;
+    lb.classList.add("zoomed");
+    lbImg.style.width = zw + "px";
+    lb.scrollLeft = lbImg.offsetLeft + fx * zw - lb.clientWidth / 2;
+    lb.scrollTop = lbImg.offsetTop + fy * lbImg.offsetHeight - lb.clientHeight / 2;
+  } else {
+    lb.classList.remove("zoomed");
+    lbImg.style.width = "";
+  }
+}
 function show(i) {
+  zoom(false);
   cur = (i + shots.length) % shots.length;
-  const s = shots[cur];
-  lbImg.src = s.currentSrc || s.src;
+  const s = shots[cur], full = s.dataset.full || s.currentSrc || s.src;
+  lbImg.srcset = s.dataset.full ? full + " 2x" : "";
+  lbImg.src = full;
   lbImg.alt = s.alt;
   lbCap.textContent = s.dataset.cap || "";
+  lb.setAttribute("aria-label", "Screenshot " + (cur + 1) + " of " + shots.length);
 }
-function openLb(i) { opener = document.activeElement; show(i); lb.classList.add("on"); document.body.style.overflow = "hidden"; lb.querySelector(".x").focus(); }
-function closeLb() { lb.classList.remove("on"); document.body.style.overflow = ""; if (opener) opener.focus(); }
+function openLb(i) {
+  opener = document.activeElement;
+  show(i);
+  lb.classList.add("on");
+  behind.forEach(e => e.inert = true);
+  document.body.style.overflow = "hidden";
+  lb.querySelector(".x").focus();
+}
+function closeLb() {
+  zoom(false);
+  lb.classList.remove("on");
+  behind.forEach(e => e.inert = false);
+  document.body.style.overflow = "";
+  if (opener) opener.focus();
+}
 shots.forEach((s, i) => {
   s.tabIndex = 0;
   s.setAttribute("role", "button");
   s.addEventListener("click", () => openLb(i));
   s.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); openLb(i); } });
+  const hint = document.createElement("span");
+  hint.className = "zoom";
+  hint.setAttribute("aria-hidden", "true");
+  hint.textContent = touch ? "Tap to enlarge" : "Click to enlarge";
+  s.parentElement.append(hint);
 });
 lb.querySelector(".x").addEventListener("click", closeLb);
 lb.querySelector(".prev").addEventListener("click", e => { e.stopPropagation(); show(cur - 1); });
 lb.querySelector(".next").addEventListener("click", e => { e.stopPropagation(); show(cur + 1); });
-lb.addEventListener("click", e => { if (e.target === lb || e.target === lbImg) closeLb(); });
+lbImg.addEventListener("click", e => { e.stopPropagation(); zoom(!lb.classList.contains("zoomed"), e); });
+lb.addEventListener("click", e => { if (e.target === lb) closeLb(); });
 addEventListener("keydown", e => {
   if (!lb.classList.contains("on")) return;
   if (e.key === "Escape") closeLb();
