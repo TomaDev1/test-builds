@@ -6,8 +6,8 @@
 <!-- Renaming the product? Change APP_NAME below, plus the name in <title> and the og: tags (link previews read those without running scripts),
      and re-render assets/og.png, the link preview image, which has the name drawn into it. -->
 <title>SwitchForge · Cisco config, STIG compliance and safe deployment</title>
-<meta name="description" content="Design, check and deploy Cisco switch and router configs offline. A live debugger, DISA STIG checks with evidence in .ckl/.cklb, and Safe Commit with a way back. Windows, air-gap ready.">
-<meta name="theme-color" content="#17181b">
+<meta name="description" content="Design, check and deploy Cisco switch and router configs offline. Builders for routing, Layer 2, security and QoS, a live debugger, DISA STIG checks with evidence in .ckl/.cklb, and Safe Commit with a way back. Windows, air-gap ready.">
+<meta name="theme-color" content="#1e1e1e">
 <meta property="og:type" content="website">
 <meta property="og:title" content="SwitchForge · Cisco config, STIG compliance and safe deployment">
 <meta property="og:description" content="Design, check and deploy Cisco configs offline, with DISA STIG checks, evidence-ready checklists and a way back on every change.">
@@ -308,9 +308,9 @@ footer p{max-width:66ch}
     <figure class="shot-hero reveal">
       <div class="window">
         <div class="bar"><i></i><i></i><i></i><span>Design · ACCESS-SW01 · Catalyst C9300-48P</span></div>
-        <img src="assets/img/design.webp" width="1600" height="1000" fetchpriority="high"
-             alt="The Design page. A 48-port Catalyst front panel with 24 ports selected; the port configuration panel shows access mode, VLAN 10 USERS, voice VLAN 20, PortFast and BPDU Guard; the global configuration shows the hostname, management interface and VLANs."
-             data-cap="Design: 24 ports selected on the front panel, with their access VLAN, voice VLAN, PortFast and BPDU Guard on the left and the switch's global settings on the right.">
+        <img src="assets/img/design.webp" width="1600" height="930" fetchpriority="high"
+             alt="The Design page. A 48-port Catalyst front panel with ports 1 to 24 selected, a table listing each selected port with its description, mode, VLAN 10 USERS, voice VLAN 20, PoE and BPDU guard, and port settings on the right: access mode, data VLAN 10, voice VLAN 20, PortFast and BPDU guard on, and the config lines for these ports."
+             data-cap="Design: ports 1 to 24 selected on the front panel, listed one per row, with their settings on the right and the config lines they produce underneath.">
       </div>
     </figure>
 
@@ -322,7 +322,7 @@ footer p{max-width:66ch}
     </div>
 
     <nav class="flow reveal" aria-label="Workflow">
-      <a href="#build"><span class="n">01</span><b>Design</b><p>Ports, global settings and ACLs. No switch needed.</p></a>
+      <a href="#build"><span class="n">01</span><b>Design</b><p>Ports, routing, ACLs, QoS and more. No switch needed.</p></a>
       <a href="#debugger"><span class="n">02</span><b>Validate</b><p>A debugger checks every line as you type.</p></a>
       <a href="#compliance"><span class="n">03</span><b>Comply</b><p>DISA STIGs with evidence and one-click fixes.</p></a>
       <a href="#deploy"><span class="n">04</span><b>Deploy</b><p>Safe Commit sends only the delta.</p></a>
@@ -338,7 +338,7 @@ footer p{max-width:66ch}
     <div class="sec-head reveal">
       <span class="eyebrow">Build offline</span>
       <h2>Catch the mistake before the switch does</h2>
-      <p>Edit the config visually or as text. Both stay in sync, and everything is checked while you work, with no switch connected.</p>
+      <p>Edit the config in forms or as text. Both stay in sync, and everything is checked while you work, with no switch connected.</p>
     </div>
 
     <div class="feature wide" id="debugger">
@@ -349,17 +349,35 @@ footer p{max-width:66ch}
           <p>Every line is checked as you type. Problem lines are underlined in the editor, and the debugger lists each issue with a <b>Why?</b> that explains it.</p>
         </div>
         <ul class="ticks">
-          <li><b>Invalid values</b>, like an NTP server of 10.20.30.999 or a route to a next hop that can't exist</li>
-          <li><b>Typos with a one-click fix</b>: "privilage" becomes "privilege"</li>
-          <li><b>Overlapping subnets and duplicate addresses</b> the switch would reject</li>
-          <li>Open STIG findings listed alongside, as compliance items</li>
+          <li><b>Invalid values</b>, like an NTP server of 10.20.30.999 or a static route to a next hop of 10.20.400.1</li>
+          <li><b>Settings IOS would reject</b>, like a spanning-tree priority of 4097</li>
+          <li><b>Overlapping subnets</b>, like a VLAN interface that overlaps the management network</li>
+          <li><b>Open STIG findings</b> on their own Compliance tab, next to the problems</li>
         </ul>
       </div>
       <figure class="reveal">
-        <div class="frame"><img src="assets/img/debugger.webp" width="1352" height="896" loading="lazy"
-          alt="The Configuration page. The editor underlines an invalid static route next hop and an invalid NTP server address in red; the debugger lists 12 errors, including the NTP server, the static route, a 'privilage' typo with a Change to 'privilege' button, and overlapping subnets."
-          data-cap="A test config full of deliberate mistakes: the bad static route (line 125) and NTP server (line 133) are underlined, and each error has Show, Edit in Design and Why?"><span class="zoom">Click to enlarge</span></div>
-        <figcaption>A test config full of deliberate mistakes. The bad route and NTP server are underlined in red.</figcaption>
+        <div class="frame"><img src="assets/img/debugger.webp" width="1368" height="912" loading="lazy"
+          alt="The Configuration page with a test config loaded: the Global form on the left, the config text in the middle, and the debugger underneath listing 21 problems, including an invalid NTP server, an invalid static route next hop, spanning-tree priority 4097 and Vlan10 overlapping the management subnet. On the right, Why is this a problem? explains that 10.20.30.999 isn't a valid IPv4 address, with Show in text and Edit in Design buttons."
+          data-cap="A test config full of deliberate mistakes: 21 problems listed under the editor, and the Why? panel explaining the invalid NTP server, with Show in text and Edit in Design."><span class="zoom">Click to enlarge</span></div>
+        <figcaption>A test config full of deliberate mistakes, with the reason for the selected one on the right.</figcaption>
+      </figure>
+    </div>
+
+    <div class="feature">
+      <div class="copy reveal">
+        <h3>Routing builders: OSPF, EIGRP and BGP</h3>
+        <p>Every part of the config has a form, listed down the left with its status. Shown here: BGP on an edge switch with an ISP neighbor and an iBGP peer.</p>
+        <ul class="ticks">
+          <li><b>Neighbors</b> with their remote AS, description and update source, and switches for activate, next-hop-self and shutdown</li>
+          <li><b>Networks to advertise</b>, one row each</li>
+          <li><b>Lines the form doesn't show</b>, like passwords and route maps, kept exactly as written</li>
+          <li><b>Imports stay exact</b>: a config you load is written back line for line until you edit it</li>
+        </ul>
+      </div>
+      <figure class="reveal">
+        <div class="frame"><img src="assets/img/routing.webp" width="1080" height="900" loading="lazy"
+          alt="The Global configuration form with its section list on the left, Routing selected and marked OSPF + BGP. The BGP card shows router bgp 65010 with router ID 10.255.0.11, a neighbor 203.0.113.1 in AS 64999 described as ISP-A CIRCUIT 4471 with its password and route-map lines kept, a neighbor 10.255.0.12 in AS 65010 described as EDGE-02 with update source Loopback0 and next-hop-self on, and network 10.31.0.0 mask 255.255.0.0."
+          data-cap="BGP on an edge switch: an eBGP neighbor to the ISP and an iBGP peer, with the lines the form doesn't show kept as written."><span class="zoom">Click to enlarge</span></div>
       </figure>
     </div>
 
@@ -368,26 +386,30 @@ footer p{max-width:66ch}
         <h3>ACLs without the guesswork</h3>
         <p>Build named standard and extended ACLs one rule per row, with the generated CLI underneath.</p>
         <ul class="ticks">
+          <li><b>Extended rules</b> with protocol, source, destination and ports</li>
           <li><b>Reorder rules</b> by dragging the handle or with the arrows</li>
           <li><b>Log per rule</b>, or add a logged deny any in one click</li>
           <li><b>Apply it</b> to the VTY lines (who may SSH in), SVIs or routed ports, in or out</li>
-          <li><b>Extended rules</b> with protocol, source, destination and ports</li>
         </ul>
       </div>
       <figure class="reveal">
-        <div class="frame"><img src="assets/img/acl.webp" width="668" height="868" loading="lazy"
-          alt="The ACL builder. Standard ACL VTY-MGMT has a remark, a permit 10.0.99.0/24 rule and a logged deny any, an Applied to section for the VTY lines and Vlan10, and the generated CLI underneath. Below it, extended ACL USERS-IN has a logged deny ip from 10.0.10.0/24 to 10.0.99.0/24 and a permit udp from any to any eq 67."
-          data-cap="ACL builder: standard ACL VTY-MGMT with its generated CLI, and extended ACL USERS-IN with protocol, addresses and ports."><span class="zoom">Click to enlarge</span></div>
+        <div class="frame"><img src="assets/img/acl.webp" width="1080" height="1000" loading="lazy"
+          alt="The ACL builder. Extended ACL USERS-IN has a remark, a logged deny ip from 10.0.10.0/24 to 10.0.99.0/24, a permit udp from any to any eq bootps and a permit ip any any, each with a drag handle and arrows. It is applied to interface Vlan10 inbound, with the generated CLI underneath."
+          data-cap="ACL builder: extended ACL USERS-IN, applied to Vlan10 inbound, with its generated CLI."><span class="zoom">Click to enlarge</span></div>
       </figure>
     </div>
 
     <div class="also">
       <div class="also-h reveal">Also in Build</div>
       <div class="cards four reveal">
-        <div class="card"><h4>Import a running-config</h4><p>It maps into settings and keeps anything else as custom CLI. The switch model is detected automatically.</p></div>
+        <div class="card"><h4>Layer 2</h4><p>Spanning tree priorities and MST regions, EtherChannel with LACP, UDLD, CDP and LLDP, and storm control.</p></div>
+        <div class="card"><h4>Access security</h4><p>RADIUS and TACACS+ server groups, 802.1X with a lockout check, DHCP snooping and ARP inspection trust, CoPP and IPv6 first hop.</p></div>
+        <div class="card"><h4>QoS</h4><p>Class maps, policy maps and service policies, with a voice preset for ports with a voice VLAN.</p></div>
+        <div class="card"><h4>Gateways and DHCP</h4><p>HSRP and VRRP, DHCP relay and pools, and VRF-lite, with a check of the differences between a pair of switches.</p></div>
+        <div class="card"><h4>Management and monitoring</h4><p>SNMPv3, syslog, NetFlow, SPAN and RSPAN, stack provisioning and PoE per port.</p></div>
+        <div class="card"><h4>Import a running-config</h4><p>Every line is kept as it was, and the switch model is detected automatically.</p></div>
         <div class="card"><h4>Copy and paste ports</h4><p>Right-click a port to copy its settings and paste them onto any selection.</p></div>
-        <div class="card"><h4>Scripts with variables</h4><p>A library of config snippets, show-command reports, and Tcl or Python for the switch.</p></div>
-        <div class="card"><h4>Bulk staging</h4><p>Stage many switches from a spreadsheet, or run commands on several at once.</p></div>
+        <div class="card"><h4>Scripts and bulk staging</h4><p>Config snippets with variables, Tcl or Python for the switch, and many switches staged from a spreadsheet.</p></div>
       </div>
     </div>
   </section>
@@ -401,22 +423,22 @@ footer p{max-width:66ch}
     </div>
     <div class="duo">
       <figure class="reveal">
-        <div class="frame"><img src="assets/img/commit.webp" width="780" height="560" loading="lazy"
-          alt="Safe Commit: 4 changes to commit to ACCESS-SW01. Pre-flight checks passed: switch reachable, management access kept, configuration syntax, no STIG regressions, best practices, golden standards. Below are the 8 command lines that will be sent."
-          data-cap="Before: only the delta, with every pre-flight check passed. You can edit the commands before committing."><span class="zoom">Click to enlarge</span></div>
-        <figcaption><b>Before.</b> Only the delta is sent, after every pre-flight check passes.</figcaption>
+        <div class="frame"><img src="assets/img/commit.webp" width="780" height="840" loading="lazy"
+          alt="Commit to ACCESS-SW01: 54 changes in 3 interface blocks. Pre-flight: switch reachable, a warning that ports Gi1/0/45-48 and Te1/1/3-8 will be shut down so make sure none is the uplink, then configuration syntax, no STIG regressions, best practices and golden standards passed. Below are the 10 command lines that will be sent, a change ticket field, and backup, safety net and before/after check options."
+          data-cap="Before: only the delta, with the pre-flight checks. A warning flags the ports that will be shut down. You can edit the commands before committing."><span class="zoom">Click to enlarge</span></div>
+        <figcaption><b>Before.</b> Only the delta is sent, and the pre-flight warns about ports being shut down.</figcaption>
       </figure>
       <figure class="reveal">
-        <div class="frame"><img src="assets/img/commit-report.webp" width="640" height="520" loading="lazy"
-          alt="Change deployed and verified on 10.0.99.11 with ticket CHG0042: every pre-check passed, 4 commands with a backup first and a reload-in-10 safety net, and every post-check passed, from still reachable to spanning-tree root unchanged."
+        <div class="frame"><img src="assets/img/commit-report.webp" width="640" height="680" loading="lazy"
+          alt="Change deployed and verified on 10.0.99.11 with ticket CHG0042: the pre-checks, 3 commands with a backup first and a reload-in-10 safety net, and every post-check passed, from still reachable to spanning-tree root unchanged."
           data-cap="After: the deployment record, ready for the change ticket."><span class="zoom">Click to enlarge</span></div>
         <figcaption><b>After.</b> The record for the change ticket, exportable as HTML.</figcaption>
       </figure>
     </div>
     <div class="phases reveal">
       <div class="phase"><span class="k">Pre-flight</span><p>The switch is reachable, nothing cuts off management access, no debugger errors, and no STIG or golden-standard regressions.</p></div>
-      <div class="phase"><span class="k">Change</span><p>A ticket number, a backup first, then a reload-in-10 safety net (or an NX-OS checkpoint) while the delta is applied.</p></div>
-      <div class="phase"><span class="k">Post-check</span><p>Still reachable, every command accepted, and before/after compared: ports, err-disabled, CDP neighbors, MAC learning and the spanning-tree root.</p></div>
+      <div class="phase"><span class="k">Change</span><p>Approval covers exactly the commands you saw, and risky changes need the hostname typed. A backup and a recovery point come first, then a reload-in-10 safety net (or an NX-OS checkpoint), and commands go one at a time, stopping at the first one the switch refuses.</p></div>
+      <div class="phase"><span class="k">Post-check</span><p>Still reachable, every command accepted, and before/after compared: ports, err-disabled, CDP neighbors, MAC learning, the spanning-tree root, and OSPF, EIGRP and BGP neighbors.</p></div>
     </div>
   </section>
 
@@ -443,10 +465,10 @@ footer p{max-width:66ch}
         </ul>
       </div>
       <figure class="reveal">
-        <div class="frame"><img src="assets/img/stig.webp" width="1352" height="896" loading="lazy"
-          alt="The STIG tab with the Cisco IOS XE Switch L2S STIG V3R2 loaded: CAT I open 1, CAT II open 10, CAT III open 1, not a finding 8. Rule V-220649 (802.1X) is open, with a Turn on 802.1X with MAB fallback fix button, and the evidence written to the checklist shows 14 config lines."
-          data-cap="The STIG tab: open findings by category, a one-click fix for V-220649, and the 14 config lines written to the checklist as evidence."><span class="zoom">Click to enlarge</span></div>
-        <figcaption>Rule V-220649 is open, with its fix and the evidence that goes into the checklist.</figcaption>
+        <div class="frame"><img src="assets/img/stig.webp" width="1368" height="912" loading="lazy"
+          alt="The Compliance page's STIG tab with the Cisco IOS XE Switch L2S STIG V3R2 checking ACCESS-SW01: CAT I open 1, CAT II open 7, CAT III open 2, not a finding 10, needs manual review 1. Rule CISC-L2-000020 (V-220649, 802.1X) is open because 802.1X/MAB isn't configured; the evidence shows the interface lines, and the fix is Turn on 802.1X with MAB fallback. Export .cklb, POA&amp;M, Fix all open and Check fleet buttons sit at the top."
+          data-cap="The STIG tab: open findings by category, rule V-220649 open with the config lines behind it, and its fix."><span class="zoom">Click to enlarge</span></div>
+        <figcaption>Rule V-220649 is open, with the evidence that goes into the checklist and its fix.</figcaption>
       </figure>
     </div>
 
@@ -469,11 +491,13 @@ footer p{max-width:66ch}
 
     <div class="also">
       <div class="also-h reveal">Also in Comply</div>
-      <div class="cards four reveal">
+      <div class="cards reveal">
+        <div class="card"><h4>Checklists that open cleanly</h4><p>Every .ckl and .cklb is checked before it's saved, and tested against STIG Manager's own reader.</p></div>
         <div class="card"><h4>NIST 800-53 mapping</h4><p>Import DISA's CCI list and every rule shows its 800-53 controls, in the app and in reports.</p></div>
         <div class="card"><h4>POA&amp;M draft</h4><p>One item per open finding, in the eMASS spreadsheet layout.</p></div>
         <div class="card"><h4>Fleet-wide runs</h4><p>Check every switch's newest backup at once, then save a report or checklist per switch.</p></div>
         <div class="card"><h4>Policy packs</h4><p>Your own golden standards with required and forbidden lines, scoped by device role.</p></div>
+        <div class="card"><h4>STIG release compare</h4><p>See which rules a new STIG release adds, removes or changes before you switch to it.</p></div>
       </div>
     </div>
   </section>
@@ -486,20 +510,41 @@ footer p{max-width:66ch}
       <p>State, history and drift, worked out from scheduled backups.</p>
     </div>
 
-    <div class="feature">
-      <div class="copy reveal">
-        <h3>Fleet board</h3>
-        <p>Every switch at a glance, checked from its newest backup without connecting.</p>
+    <div class="feature wide">
+      <div class="copy wide-head reveal">
+        <div>
+          <h3>Home: what needs you today</h3>
+          <p>The app opens on the whole network at a glance, worked out from the newest backups.</p>
+        </div>
+        <ul class="ticks">
+          <li><b>Reachable switches, STIG compliance, open CAT I findings, drift and backups</b> across the top</li>
+          <li><b>The switches that need attention</b>, worst first, with the reason on each row</li>
+          <li><b>Findings by severity</b>, recent activity from the change log, and your recent projects</li>
+        </ul>
+      </div>
+      <figure class="reveal">
+        <div class="frame"><img src="assets/img/home.webp" width="1368" height="912" loading="lazy"
+          alt="The Home page: 9 of 10 switches reachable with ACCESS-SW05 unreachable, 83% STIG compliance with 6 of 10 switches compliant, 2 open CAT I findings on 2 switches, 1 switch changed since known-good, and 10 backups in the last 24 hours with 1 failed. Needs attention lists ACCESS-SW05 (backup failed), ACCESS-SW01 and ACCESS-SW04 (open STIG rules) and DIST-SW02 (drifted). On the right, compliance by severity and recent projects; below, recent activity."
+          data-cap="Home: 10 switches at a glance, and the 4 that need attention, each with the reason."><span class="zoom">Click to enlarge</span></div>
+      </figure>
+    </div>
+
+    <div class="feature wide">
+      <div class="copy wide-head reveal">
+        <div>
+          <h3>Fleet board</h3>
+          <p>Every switch at a glance, checked from its newest backup without connecting.</p>
+        </div>
         <ul class="ticks">
           <li><b>Compliant, drifted, non-compliant or unreachable</b>, counted at the top</li>
-          <li><b>The reason on every row</b>: a failed backup, the policy-pack lines it misses, or what drifted</li>
+          <li><b>The reason on every row</b>: a failed backup, open STIG rules, or what drifted</li>
           <li><b>Refresh</b> checks the connected switches live</li>
         </ul>
       </div>
       <figure class="reveal">
-        <div class="frame"><img src="assets/img/fleet.webp" width="910" height="560" loading="lazy"
-          alt="The Fleet board: 9 switches, 4 compliant, 2 drifted, 2 non-compliant and 1 unreachable, with each switch listed with its state and the reason."
-          data-cap="Fleet board: 9 switches, each with its state and the reason for it."><span class="zoom">Click to enlarge</span></div>
+        <div class="frame"><img src="assets/img/fleet.webp" width="1368" height="912" loading="lazy"
+          alt="The Fleet board: 10 switches, 6 compliant, 1 drifted, 2 non-compliant and 1 unreachable, checked against 1 STIG and 1 policy pack. Each switch is listed with its model, IOS release, reachability, STIG score, drift, last backup and the reason, from Backup failed: No reply on port 22 to No open findings and no drift."
+          data-cap="Fleet board: 10 switches, each with its state and the reason for it."><span class="zoom">Click to enlarge</span></div>
       </figure>
     </div>
 
@@ -511,13 +556,13 @@ footer p{max-width:66ch}
         </div>
         <ul class="ticks">
           <li><b>Known-good backups</b> marked with a star, saved after a Safe Commit that passed or marked by hand</li>
-          <li><b>Security changes first</b>, like an SNMPv3 group removed and a community added</li>
-          <li><b>Grouped</b> into interfaces, VLANs and management settings, then the line-by-line diff</li>
+          <li><b>Security changes first</b>, like an SNMP community added, with the community itself masked</li>
+          <li><b>Grouped</b> into VLANs and management settings, then the line-by-line diff</li>
         </ul>
       </div>
       <figure class="reveal">
-        <div class="frame"><img src="assets/img/whatchanged.webp" width="1472" height="890" loading="lazy"
-          alt="The Backups page for DIST-SW02: a scheduled backup from 2026-10-09 and a known-good backup from 2026-10-02 saved after a Safe Commit passed. What changed lists 6 changes, 2 touching security: the SNMPv3 group was removed and an SNMP community was added, Gi1/0/12 moved to VLAN 77, VLAN 77 TEMP-VENDOR was added and an NTP server changed. Below that is the line-by-line diff with added lines in green and removed lines in red."
+        <div class="frame"><img src="assets/img/whatchanged.webp" width="1368" height="912" loading="lazy"
+          alt="The Backups page for DIST-SW02: a scheduled backup from 2026-10-13 and a known-good backup from 2026-10-06. What changed lists 4 changes, 1 touching security: an SNMP community was added (its value masked), VLAN 77 TEMP-VENDOR was added, and an NTP server was replaced. Below that is the line-by-line diff with added lines in green and removed lines in red."
           data-cap="What changed on DIST-SW02 since its known-good backup: security first, then grouped changes and the line-by-line diff."><span class="zoom">Click to enlarge</span></div>
       </figure>
     </div>
@@ -535,8 +580,8 @@ footer p{max-width:66ch}
         </ul>
       </div>
       <figure class="reveal">
-        <div class="frame"><img src="assets/img/versions.webp" width="1372" height="962" loading="lazy"
-          alt="The Versions page: 10 switches, 10 with advisories, 8 at end of sale or support. ACCESS-SW01 on IOS XE 17.9.3 is marked Affected by the critical web UI advisory because its config turns on ip http server, and its release no longer gets security fixes."
+        <div class="frame"><img src="assets/img/versions.webp" width="1368" height="912" loading="lazy"
+          alt="The Versions page: 10 switches, 6 with advisories, 3 at end of sale or support. ACCESS-SW01 on IOS XE 17.9.3 is marked Affected by the critical web UI advisory because its config turns on the web UI, and its release is past support."
           data-cap="Versions: ACCESS-SW01 is affected by the web UI advisory because its config turns on ip http server."><span class="zoom">Click to enlarge</span></div>
       </figure>
     </div>
@@ -550,13 +595,13 @@ footer p{max-width:66ch}
         <ul class="ticks">
           <li><b>Core, distribution and access</b> layers, laid out automatically</li>
           <li><b>Links colored</b> by trunk or routed, with the port on each end</li>
-          <li><b>Phones, access points and hosts</b> tucked under their switch</li>
+          <li><b>Phones, access points and hosts</b> tucked under their switch, and switches that couldn't be read outlined in red</li>
         </ul>
       </div>
       <figure class="reveal">
-        <div class="frame"><img src="assets/img/topology.webp" width="1290" height="480" loading="lazy"
-          alt="The Topology page: CORE-SW01, CORE-SW02 and a WAN router in the core layer, DIST-SW01, DIST-SW02 and a firewall in distribution, and five access switches below, linked by blue trunk lines and purple routed lines labelled with port names."
-          data-cap="Topology: core, distribution and access layers, with trunks in blue and routed links in purple."><span class="zoom">Click to enlarge</span></div>
+        <div class="frame"><img src="assets/img/topology.webp" width="1545" height="610" loading="lazy"
+          alt="The Topology map: CORE-SW01, CORE-SW02 and WAN-RTR01 in the core layer, DIST-SW01 and DIST-SW02 in distribution, and five access switches below, linked by blue trunk lines and purple routed lines labelled with port names. ACCESS-SW05 has a dashed red border because it couldn't be read, and ACCESS-SW01 and ACCESS-SW02 carry endpoint badges."
+          data-cap="Topology: core, distribution and access layers, with trunks in blue, routed links in purple, and a switch that couldn't be read outlined in red."><span class="zoom">Click to enlarge</span></div>
       </figure>
     </div>
 
@@ -576,7 +621,7 @@ footer p{max-width:66ch}
     <div class="sec-head reveal">
       <span class="eyebrow">Built for secure environments</span>
       <h2>Runs on one Windows PC. No cloud, no account.</h2>
-      <p>Projects, backups and settings stay in your Windows profile. Nothing is sent anywhere.</p>
+      <p>Projects, backups and settings stay in your Windows profile, encrypted for your account. Nothing is sent anywhere.</p>
     </div>
     <div class="cards reveal">
       <div class="card">
@@ -592,7 +637,7 @@ footer p{max-width:66ch}
       <div class="card">
         <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6M8 13h8M8 17h5"/></svg></div>
         <h3>SBOM and checksums</h3>
-        <p>Every release ships a CycloneDX software bill of materials and SHA-256 checksums for your security review.</p>
+        <p>Every release ships a CycloneDX software bill of materials listing exactly what the exe contains, and SHA-256 checksums.</p>
       </div>
       <div class="card">
         <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg></div>
@@ -606,8 +651,8 @@ footer p{max-width:66ch}
       </div>
       <div class="card">
         <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="10" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div>
-        <h3>Secrets stay secret</h3>
-        <p>Local accounts and the enable secret are stored as type 9 or type 8 hashes, and secrets are masked in evidence and records.</p>
+        <h3>Encrypted at rest</h3>
+        <p>Backups and project files are encrypted for your Windows user. Local accounts use type 9 or type 8 hashes, and secrets are masked in evidence, records and the change log.</p>
       </div>
     </div>
 
@@ -671,7 +716,7 @@ footer p{max-width:66ch}
     <div class="faq reveal">
       <details>
         <summary>Do I need a switch to try it?</summary>
-        <p>No. Design, the debugger, ACLs, the STIG checks and reports all work offline, on the built-in sample switch or a config file you import. Connect to a switch when you want to read its config or deploy.</p>
+        <p>No. Design, the builders, the debugger, the STIG checks and reports all work offline, on the built-in sample switch or a config file you import. Connect to a switch when you want to read its config or deploy.</p>
       </details>
       <details>
         <summary>Which STIGs does it check?</summary>
@@ -683,7 +728,7 @@ footer p{max-width:66ch}
       </details>
       <details>
         <summary>Where is my data kept?</summary>
-        <p>In your Windows profile, under <code>%AppData%\SwitchForge</code>: projects, backups, settings and the changelog. Remembered session passwords are protected with Windows DPAPI. Nothing is uploaded.</p>
+        <p>In your Windows profile, under <code>%AppData%\SwitchForge</code>: projects, backups, settings and the changelog. Backups, projects and remembered session passwords are encrypted with Windows DPAPI, so only your Windows account can open them. To move a project to another PC, use File &gt; Save portable copy. Nothing is uploaded.</p>
       </details>
       <details>
         <summary>What does read-only mean?</summary>
