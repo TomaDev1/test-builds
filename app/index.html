@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SwitchForge in your browser</title>
+  <meta name="description" content="Design, check and STIG-review Cisco switch configurations in your browser. Runs offline on this page: nothing you load leaves your computer.">
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="../assets/favicon-32.png" type="image/png" sizes="32x32">
+  <style>
+    @font-face { font-family: "Inter"; src: url("../assets/fonts/inter-latin.woff2") format("woff2"); font-weight: 100 900; font-display: swap; }
+    :root { --bg:#17181b; --panel:#232428; --line:#34363c; --text:#f2f3f5; --muted:#b5bac1; --dim:#8b9099; --accent:#2dd4bf; --err:#f06a6f;
+            --sans:"Inter",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif; }
+    html, body { margin: 0; height: 100%; overflow: hidden; background: var(--bg); color: var(--text); font-family: var(--sans); }
+    #out { position: fixed; inset: 0; }
+    #splash { position: fixed; inset: 0; display: flex; align-items: center; justify-content: center; padding: 16px; background: var(--bg); z-index: 2; transition: opacity .25s; }
+    #splash.gone { opacity: 0; pointer-events: none; }
+    .box { width: 100%; max-width: 440px; text-align: center; }
+    .brand { display: inline-flex; align-items: center; gap: 12px; font-weight: 700; letter-spacing: .18em; font-size: 15px; }
+    .brand svg { width: 28px; height: 28px; stroke: var(--accent); fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+    h1 { font-size: 22px; font-weight: 600; margin: 28px 0 8px; text-wrap: balance; }
+    p { color: var(--muted); font-size: 14.5px; line-height: 1.55; margin: 0 0 22px; text-wrap: pretty; }
+    .bar { height: 6px; border-radius: 3px; background: var(--panel); border: 1px solid var(--line); overflow: hidden; }
+    .bar > div { height: 100%; width: 0; background: var(--accent); transition: width .2s; }
+    .note { color: var(--dim); font-size: 12.5px; margin-top: 10px; min-height: 1.4em; }
+    .err { color: var(--err); }
+    a { color: var(--accent); }
+    #narrow { display: none; color: var(--muted); font-size: 13.5px; margin-top: 22px; line-height: 1.5; }
+    @media (max-width: 1000px) { #narrow { display: block; } }
+  </style>
+  <script type="module" src="./main.js"></script>
+</head>
+<body>
+  <div id="out"></div>
+  <div id="splash" role="status" aria-live="polite">
+    <div class="box">
+      <div class="brand">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3,7 H16 M13,4 L16,7 L13,10 M21,12 H6 M3,17 H16 M13,14 L16,17 L13,20"/></svg>
+        SWITCHFORGE
+      </div>
+      <h1>Loading SwitchForge in your browser</h1>
+      <p>Design, check and STIG-review a switch configuration. Everything runs on this page: nothing you load or type is sent anywhere.</p>
+      <div class="bar"><div id="progress"></div></div>
+      <div class="note" id="note">Starting...</div>
+      <div id="narrow">SwitchForge is made for a desktop-sized window. On a phone or a small window, some pages won't fit.</div>
+      <noscript><p class="err">SwitchForge needs JavaScript and WebAssembly turned on.</p></noscript>
+    </div>
+  </div>
+</body>
+</html>
