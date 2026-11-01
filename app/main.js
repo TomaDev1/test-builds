@@ -42,10 +42,20 @@ if (typeof WebAssembly !== 'object') {
     bar.style.width = '100%';
     const started = runtime.runMain(runtime.getConfig().mainAssemblyName, []);
     // The app draws into #out once it has started; then the splash fades out
+    const rendered = () => !!document.querySelector('#out canvas');
     const done = () => { splash.classList.add('gone'); setTimeout(() => splash.remove(), 400); };
-    const watch = new MutationObserver(() => { if (document.querySelector('#out canvas')) { watch.disconnect(); setTimeout(done, 300); } });
+    const watch = new MutationObserver(() => { if (rendered()) { watch.disconnect(); setTimeout(done, 300); } });
     watch.observe(document.getElementById('out'), { childList: true, subtree: true });
-    await started;
+    try {
+      await started;
+    } catch (e) {
+      console.error(e);
+      // The single-threaded browser runtime throws on a blocking wait (e.g. "Cannot wait on
+      // monitors on this runtime") even though the app keeps running and draws normally. Only
+      // report a real failure: if the app never put up its canvas, give it a moment, then check.
+      if (!rendered()) await new Promise(r => setTimeout(r, 2500));
+      if (!rendered()) fail('SwitchForge couldn’t start in this browser: ' + (e && e.message ? e.message : e));
+    }
   } catch (e) {
     console.error(e);
     fail('SwitchForge couldn’t start in this browser: ' + (e && e.message ? e.message : e));
