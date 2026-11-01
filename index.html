@@ -207,6 +207,7 @@ figcaption b{color:var(--muted);font-weight:600}
 .steps>div{font-size:14.5px;color:var(--muted);line-height:1.55}
 .steps b{display:flex;align-items:center;gap:10px;color:var(--text);margin-bottom:6px;font-size:15.5px}
 .steps b i{font:600 12px var(--mono);font-style:normal;width:24px;height:24px;border-radius:50%;display:grid;place-items:center;background:var(--panel3);color:var(--accent2);flex:none}
+.dl-demo{margin-top:30px;padding-top:26px;border-top:1px solid var(--line);color:var(--muted);font-size:15px;text-align:center}
 
 /* ---------- faq ---------- */
 .faq{max-width:860px}
@@ -334,6 +335,7 @@ footer p{max-width:66ch}
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
     </button>
     <nav class="links" id="links" aria-label="Sections">
+      <a href="app/">Web demo</a>
       <a href="#build">Build</a>
       <a href="#compliance">Comply</a>
       <a href="#deploy">Deploy</a>
@@ -355,7 +357,7 @@ footer p{max-width:66ch}
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0-5-5m5 5 5-5M4 19h16"/></svg>
         Download for Windows
       </a>
-      <a class="btn ghost" href="#compliance">See the STIG checks</a>
+      <a class="btn ghost" href="app/">Try it in your browser</a>
     </div>
     <p class="meta" id="hero-meta"><span class="nw">Test builds for invited testers</span>&nbsp;· <span class="nw">Works offline</span>&nbsp;· <span class="nw">No sign-up</span></p>
 
@@ -760,6 +762,7 @@ footer p{max-width:66ch}
       <div><b><i>2</i>If SmartScreen warns you</b>Windows says it protected your PC. Click More info, then Run anyway. If your PC only runs signed apps, ask your admin.</div>
       <div><b><i>3</i>Load your license</b>On the first screen, open the <code>.sflic</code> file from your invitation. Then accept the tester agreement and set an admin password, which stays on this PC. Without a license the app opens <span class="nw">read-only</span>.</div>
     </div>
+    <p class="dl-demo">Not ready to install? <a href="app/">Try the design, configuration and STIG tools in your browser</a> — no download, nothing to connect.</p>
   </div>
 
   <!-- ===================== FAQ ===================== -->
@@ -771,7 +774,7 @@ footer p{max-width:66ch}
     <div class="faq reveal">
       <details>
         <summary>Do I need a switch to try it?</summary>
-        <p>No. Design, the builders, the debugger, the STIG checks and reports all work offline, on the built-in sample switch or a config file you import. Connect to a switch when you want to read its config or deploy.</p>
+        <p>No. You don't even need to download anything to start: the <a href="app/">web demo</a> runs the design, configuration and STIG tools right in your browser. In the full app, Design, the builders, the debugger, the STIG checks and reports all work offline too, on the built-in sample switch or a config file you import. Connect to a switch when you want to read its config or deploy.</p>
       </details>
       <details>
         <summary>Which STIGs does it check?</summary>
