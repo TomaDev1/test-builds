@@ -22,6 +22,9 @@ function gzipResourceLoader(type, name, defaultUri) {
   })();
 }
 
+// Right-click opens the app's own menus (cut/copy/paste on a port), so keep the browser's menu out of the way
+document.addEventListener('contextmenu', e => e.preventDefault());
+
 if (typeof WebAssembly !== 'object') {
   fail('This browser can’t run WebAssembly. Try a current Chrome, Edge, Firefox or Safari.');
 } else if (typeof DecompressionStream !== 'function') {
